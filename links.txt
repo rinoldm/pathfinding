@@ -89,7 +89,7 @@
  -1| 16|         | -2| 16|         |g|
  -1| 16|         | -1| 17|         |b|
  -1| 17|         | -1| 18|         |b|
- -1| 18|         | -1| 19|main     |b|
+ -1| 18|         | -1| 19|tp       |b|
  -1| 19|main     |  0| 19|         |d|
  -1| 19|main     | -2| 19|         |g|
  -1| 19|tp       | -1| 20|vortex   |b|
@@ -1105,7 +1105,7 @@
 -20| 18|gauche   | -9|  0|         |v|
 -20| 19|vortex   | -2|  0|         |v|SECRET DU LABY
 -20| 20|         |  0|  0|         |v|
-  
+
 -18| 17|droite   |-17| 17|bouton   |d|BOUTON SALLE VERTE 1
 -17| 17|bouton   | -4|  0|         |v|
 -16| 16|milieu   |-16| 17|bouton   |b|BOUTON SALLE VERTE 2
@@ -1135,7 +1135,7 @@
 -13|  7|vortex   |-16| 20|bouton   |v|BOUTON SALLE VERTE 15
 -16| 20|bouton   |-13|  7|main     |v|
  -8|  1|vortex   |-17| 20|bouton   |v|BOUTON SALLE VERTE 16
--17| 20|bouton   | -8|  1|droite   |v|   
+-17| 20|bouton   | -8|  1|droite   |v|
 
  -4|  5|main     |-20| 20|         |v|vortex gauche/bas/droite (NECESSITE BOUTON)
  -7|  1|         |-20| 20|         |v|

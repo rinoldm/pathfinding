@@ -31,9 +31,6 @@ public:
     std::array<std::array<int, MUSTPASSNB + 1>, MUSTPASSNB + 1> dist;
 
     void addLink(std::string from, std::string to, int weight, bool bothways = false, std::string comment = "", int death = 0);
-    void printInvalidLink(int x1, int y1, std::string zone1, int x2, int y2, std::string zone2, std::string type);
-    void checkLinks(int x1, int y1, std::string zone1, int x2, int y2, std::string zone2, std::string type);
-    void getLinks(std::string filename);
     void addDummy();
     Link findLink(std::string from, std::string to);
     void printGraph();
