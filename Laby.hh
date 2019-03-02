@@ -5,7 +5,7 @@
 #include <map>
 #include <vector>
 
-#define MUSTPASSNB 15
+#define MUSTPASSNB 17
 #define MAX_DISTANCE 666666
 
 class Link
