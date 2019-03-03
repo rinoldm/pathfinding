@@ -8,6 +8,7 @@
 #include <vector>
 #include <algorithm>
 #include <map>
+#include <cstdlib>
 
 class Parser
 {

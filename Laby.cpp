@@ -74,16 +74,19 @@ Laby::Laby()
     this->mustPass =
     {
         "(-17;17)_bouton", "(-16;17)_bouton", "(-15;17)_bouton", "(-14;17)_bouton",
-        "(-14;18)_bouton", "(-15;18)_bouton", "(-16;18)_bouton", "(-17;18)_bouton",
+        "(-17;18)_bouton", "(-16;18)_bouton", "(-15;18)_bouton", "(-14;18)_bouton",
         "(-17;19)_bouton", "(-16;19)_bouton",                    "(-14;19)_bouton",
-        "(-14;20)_bouton", "(-15;20)_bouton", "(-16;20)_bouton", "(-17;20)_bouton"
+        "(-17;20)_bouton", "(-16;20)_bouton", "(-15;20)_bouton", "(-14;20)_bouton"
     };
 
     this->mustPass.insert(this->mustPass.begin(), this->entrance =  "(0;0)");
     this->mustPass.insert(this->mustPass.end(),   this->exit     = "(-17;22)");
 
     if (this->mustPass.size() != MUSTPASSNB)
+    {
         std::cout << "MUSTPASSNB INCORRECT" << std::endl;
+        std::exit(1);
+    }
 
     std::vector<std::pair<std::string, std::string>> dep =
     {

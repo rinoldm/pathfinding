@@ -23,7 +23,7 @@ int main()
         initialSet.insert(i);
 
     laby.printGraph();
-/*
+
     int answer = heldkarp.findShortestTour(laby.dist, 0, initialSet) + 1;
     std::cout << "\rNombre de niveaux parcourus : " << answer << std::endl << std::endl;
 
@@ -40,7 +40,7 @@ int main()
     std::cout << "Entree du labyrinthe : " << laby.entrance << std::endl << std::endl;
     for (unsigned int i = 0; i < path.size() - 2; ++i)
     {
-        /*
+    /*
         std::cout << (i == 0 ? "Entree du labyrinthe" : "Point de passage") << " : " << path[i];
         for (auto it = laby.dependencies.begin(); it != laby.dependencies.end(); ++it)
         {
@@ -50,11 +50,11 @@ int main()
                 std::cout << " - ouvre l'acces vers " << laby.mustPass[(*it).second];
         }
         std::cout << std::endl;
-        *//*
+    */
         std::cout << "Distance " << path[i] << " - " << path[i + 1] << " : " << laby.dist[parser.indexOf(laby.mustPass, path[i])][parser.indexOf(laby.mustPass, path[i + 1])] << std::endl;
         dijkstra.findShortestPath(path[i], path[i + 1], true);
     }
     std::cout << "Sortie du labyrinthe : " << laby.exit << std::endl;
-*/
+
     return 0;
 }

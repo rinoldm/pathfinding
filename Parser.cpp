@@ -80,7 +80,10 @@ void Parser::checkLink(int x1, int y1, std::string zone1, int x2, int y2, std::s
         (type == "m" && (x2 != x1     || y2 != y1       || zone2 == zone1)) ||
         (type == "M" && (x2 == x1     && y2 == y1    )) ||
         (type == "v" && (x2 == x1     && y2 == y1    )))
+        {
             std::cout << "LIEN INVALIDE : " << x1 << " " << y1 << " " << zone1 << " " << x2 << " " << y2 << " " << zone2 << " " << type << std::endl;
+            std::exit(1);
+        }
 }
 
 void Parser::getLinks()
