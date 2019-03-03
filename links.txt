@@ -683,6 +683,7 @@
 -12|  0|         |-13|  0|         |g|
 -12|  1|tp       |-13|  1|bas      |g|
 -12|  1|tp       |-11|  1|tp       |d|
+-12|  1|tp       |-12|  1|main     |m|
 -12|  1|main     |-13|  1|haut     |g|
 -12|  1|main     |-11|  1|main     |d|
 -12|  1|main     |-12|  2|         |b|
@@ -690,13 +691,16 @@
 -12|  3|main     |-11|  3|main     |d|
 -12|  3|tp       |-11|  3|gauche   |d|
 -12|  3|tp       |-12|  4|tp       |b|
+-12|  3|tp       |-12|  3|main     |m|
 -12|  4|tp       |-12|  5|         |b|
+-12|  4|tp       |-12|  4|porte    |m|
 -12|  4|porte    |-13|  4|         |g|
 -12|  4|porte    |-12|  5|         |b|
 -12|  5|         |-13|  5|         |g|
 -12|  5|         |-11|  5|         |d|
 -12|  5|         |-12|  6|main     |b|
 -12|  6|tp       |-13|  6|porte    |g|
+-12|  6|tp       |-12|  6|main     |m|
 -12|  6|tp       |-11|  6|tp       |d|
 -12|  6|main     |-12|  7|         |b|
 -12|  7|         |-11|  7|main     |d|
@@ -709,37 +713,45 @@
 -12| 11|main     |-13| 11|droite   |g|
 -12| 11|main     |-11| 11|         |d|
 -12| 11|tp       |-12| 12|         |b|
+-12| 11|tp       |-12| 11|main     |m|
 -12| 12|         |-13| 12|tp       |g|
 -12| 12|         |-12| 13|main     |b|
 -12| 13|tp       |-13| 13|grandtp  |g|
 -12| 13|tp       |-11| 13|tp       |d|
+-12| 13|tp       |-12| 13|main     |m|
 -12| 13|main     |-12| 14|gauche   |b|
 -12| 14|gauche   |-12| 15|main     |b|
+-12| 14|gauche   |-12| 14|droite   |m|
 -12| 14|droite   |-12| 15|main     |b|
 -12| 14|droite   |-11| 14|         |d|
 -12| 15|main     |-11| 15|haut     |d|
 -12| 15|main     |-12| 16|main     |b|
 -12| 15|tp       |-13| 15|tp       |g|
 -12| 15|tp       |-12| 16|tp       |b|
+-12| 15|tp       |-12| 15|main     |m|
 -12| 16|main     |-11| 16|main     |d|
 -12| 16|main     |-12| 17|main     |b|
 -12| 16|tp       |-12| 17|tp       |b|
+-12| 16|tp       |-12| 16|main     |m|
 -12| 17|main     |-13| 17|         |g|
 -12| 17|main     |-12| 18|droite   |b|
 -12| 17|tp       |-12| 17|main     |c|change zone
 -12| 17|tp       |-12| 18|gauche   |b|bas droite (IG'OR)
 -12| 18|gauche   |-13| 18|tp       |g|
+-12| 18|gauche   |-12| 18|droite   |m|
 -12| 18|droite   |-11| 18|portes   |d|
 -12| 18|droite   |-12| 19|         |b|
 -12| 19|         |-13| 19|         |g|
 -12| 19|         |-12| 20|main     |b|
 -12| 20|droite   |-11| 20|         |d|
 -12| 20|droite   |-12| 20|main     |c|change zone
+-12| 20|main     |-12| 20|droite   |m|
 -12| 20|main     |-13| 20|         |g|
 -13|  0|         |-14|  0|         |g|
 -13|  0|         |-12|  0|         |d|
 -13|  1|haut     |-14|  1|haut     |g|
 -13|  1|haut     |-12|  1|main     |d|
+-13|  1|bas      |-13|  1|haut     |m|
 -13|  1|bas      |-14|  1|bas      |g|
 -13|  1|bas      |-12|  1|tp       |d|
 -13|  1|bas      |-13|  2|tp       |b|bas gauche
@@ -755,8 +767,10 @@
 -13|  5|         |-13|  6|main     |b|
 -13|  6|main     |-13|  7|main     |b|
 -13|  6|porte    |-12|  6|tp       |d|
+-13|  6|porte    |-13|  6|main     |m|
 -13|  6|porte    |-13|  7|vortex   |b|
 -13|  7|main     |-14|  7|tp       |g|
+-13|  7|vortex   |-13|  7|main     |m|
 -13|  7|main     |-13|  8|         |b|
 -13|  8|         |-14|  8|droite   |g|
 -13|  8|         |-13|  9|         |b|
@@ -766,6 +780,7 @@
 -13| 10|         |-14| 10|droite   |g|
 -13| 10|         |-13| 11|gauche   |b|
 -13| 11|gauche   |-14| 11|droite   |g|
+-13| 11|gauche   |-13| 11|droite   |m|
 -13| 11|droite   |-12| 11|main     |d|
 -13| 11|droite   |-13| 12|main     |b|
 -13| 12|main     |-14| 12|         |g|
@@ -777,16 +792,20 @@
 -13| 13|grandtp  |-12| 13|tp       |d|
 -13| 13|main     |-13| 14|         |b|
 -13| 13|petittp  |-13| 14|         |b|
+-13| 13|petittp  |-13| 13|main     |m|
+-13| 13|grandtp  |-13| 13|main     |m|
 -13| 14|         |-14| 14|tp       |g|
 -13| 14|         |-13| 15|main     |b|
 -13| 15|tp       |-14| 15|         |g|
 -13| 15|tp       |-12| 15|tp       |d|
+-13| 15|tp       |-13| 15|main     |m|
 -13| 15|main     |-13| 16|         |b|
 -13| 16|         |-14| 16|         |g|
 -13| 16|         |-13| 17|         |b|
 -13| 17|         |-12| 17|main     |d|
 -13| 17|         |-13| 18|main     |b|
 -13| 18|tp       |-12| 18|gauche   |d|
+-13| 18|tp       |-13| 18|main     |m|
 -13| 18|main     |-13| 19|         |b|
 -13| 19|         |-12| 19|         |d|
 -13| 19|         |-13| 20|         |b|
@@ -795,50 +814,66 @@
 -14|  0|         |-14|  1|haut     |b|
 -14|  1|haut     |-13|  1|haut     |d|
 -14|  1|haut     |-15|  1|         |g|
+-14|  1|bas      |-14|  1|haut     |m|
 -14|  1|bas      |-13|  1|bas      |d|
 -14|  1|bas      |-14|  2|gauche   |b|
 -14|  2|droite   |-13|  2|main     |d|
 -14|  2|droite   |-14|  3|droite   |b|bas droite
 -14|  2|droite   |-14|  3|milieu   |b|bas gauche
 -14|  2|gauche   |-14|  3|gauche   |b|
+-14|  2|gauche   |-14|  2|droite   |m|
 -14|  2|gauche   |-15|  2|         |g|
 -14|  3|gauche   |-15|  3|         |g|
 -14|  3|milieu   |-14|  4|tp       |b|
+-14|  3|milieu   |-14|  3|gauche   |m|
+-14|  3|droite   |-14|  3|gauche   |m|
 -14|  3|droite   |-14|  4|main     |b|
 -14|  4|main     |-15|  4|main     |g|
+-14|  4|main     |-14|  4|tp       |m|
 -14|  4|main     |-14|  5|main     |b|bas gauche
 -14|  4|main     |-14|  5|tp       |b|bas droite
 -14|  4|tp       |-14|  5|porte    |b|
 -14|  5|porte    |-13|  5|         |d|
 -14|  5|tp       |-14|  6|tp       |b|
 -14|  5|main     |-14|  6|main     |b|
+-14|  5|main     |-14|  5|tp       |m|
+-14|  5|porte    |-14|  5|tp       |m|
 -14|  6|main     |-15|  6|         |g|
 -14|  6|main     |-14|  6|tp       |c|change zone
 -14|  6|tp       |-14|  7|tp       |b|
+-14|  6|tp       |-14|  6|main     |m|
 -14|  7|tp       |-13|  7|main     |d|
+-14|  7|tp       |-14|  7|main     |m|
 -14|  7|main     |-15|  7|         |g|
 -14|  7|main     |-14|  8|gauche   |b|
 -14|  8|droite   |-13|  8|         |d|
+-14|  8|droite   |-14|  8|gauche   |m|
 -14|  8|droite   |-14|  9|droite   |b|
 -14|  8|gauche   |-14|  9|gauche   |b|
 -14|  9|droite   |-13|  9|         |d|
+-14|  9|droite   |-14|  9|gauche   |m|
 -14|  9|gauche   |-15|  9|         |g|
 -14|  9|gauche   |-14| 10|gauche   |b|
 -14| 10|gauche   |-15| 10|         |g|
 -14| 10|droite   |-13| 10|         |d|
 -14| 10|droite   |-14| 11|droite   |b|
+-14| 10|droite   |-14| 10|gauche   |m|
 -14| 11|droite   |-13| 11|gauche   |d|
 -14| 11|droite   |-14| 12|         |b|
 -14| 11|gauche   |-15| 11|droite   |g|
--14| 11|gauche   |-14| 12|         |b|
+-14| 11|droite   |-14| 11|basgauche|m|
+-14| 11|gauche   |-14| 11|basgauche|c|
+-14| 11|basgauche|-14| 12|         |b|
 -14| 12|         |-13| 12|main     |d|
 -14| 12|         |-14| 13|gauche   |b|
 -14| 13|gauche   |-15| 13|         |g|
 -14| 13|droite   |-13| 13|grandtp  |d|
+-14| 13|droite   |-14| 13|gauche   |m|
 -14| 13|droite   |-14| 14|         |b|
 -14| 14|tp       |-13| 14|         |d|
 -14| 14|tp       |-15| 14|tp       |g|
--14| 14|tp       |-14| 15|         |b|
+-14| 14|tp       |-14| 14|main     |m|
+-14| 14|main     |-14| 15|         |b|
 -14| 15|         |-13| 15|tp       |d|
 -14| 15|         |-14| 16|         |b|
 -14| 16|         |-13| 16|         |d|
@@ -858,9 +893,11 @@
 -15|  3|         |-15|  4|tp       |b|
 -15|  4|main     |-16|  4|main     |g|
 -15|  4|main     |-14|  4|main     |d|
+-15|  4|main     |-15|  4|tp       |m|
 -15|  4|main     |-15|  5|droite   |b|
 -15|  4|tp       |-15|  5|gauche   |b|
 -15|  5|gauche   |-16|  5|petittp  |g|
+-15|  5|gauche   |-15|  5|droite   |m|
 -15|  5|gauche   |-15|  6|         |b|
 -15|  5|droite   |-14|  5|main     |d|
 -15|  5|droite   |-15|  6|         |b|
@@ -879,6 +916,7 @@
 -15| 10|         |-15| 11|droite   |b|bas droite
 -15| 11|droite   |-14| 11|gauche   |d|
 -15| 11|droite   |-15| 12|         |b|
+-15| 11|droite   |-15| 11|gauche   |m|
 -15| 11|gauche   |-15| 12|         |b|
 -15| 12|         |-16| 12|         |g|
 -15| 12|         |-15| 13|         |b|
@@ -887,11 +925,13 @@
 -15| 13|         |-15| 14|main     |b|
 -15| 14|tp       |-16| 14|         |g|
 -15| 14|tp       |-14| 14|tp       |d|
+-15| 14|tp       |-15| 14|main     |m|
 -15| 14|main     |-15| 15|main     |b|
 -15| 15|porte    |-16| 15|tp       |g|
 -15| 15|porte    |-15| 15|main     |c|
 -15| 15|main     |-15| 16|droite   |b|
 -15| 16|gauche   |-16| 16|droite   |g|
+-15| 16|gauche   |-15| 16|droite   |m|
 -15| 17|main     |-14| 17|main     |d|SALLE VERTE 4
 -15| 18|main     |-16| 18|main     |g|SALLE VERTE 7
 -15| 18|bouton   |-16| 18|tp       |g|
@@ -905,33 +945,42 @@
 -16|  3|main     |-17|  3|         |g|
 -16|  3|tp       |-15|  3|         |d|
 -16|  3|tp       |-16|  4|tp       |b|
+-16|  3|tp       |-16|  3|main     |m|
 -16|  4|main     |-17|  4|droite   |g|
 -16|  4|main     |-15|  4|main     |d|
+-16|  4|main     |-16|  4|tp       |m|
 -16|  4|main     |-16|  5|petittp  |b|bas gauche
 -16|  4|main     |-16|  5|main     |b|bas droite
 -16|  4|tp       |-16|  5|grandtp  |b|
 -16|  5|petittp  |-15|  5|gauche   |d|
+-16|  5|petittp  |-16|  5|main     |m|
+-16|  5|grandtp  |-16|  5|main     |m|
 -16|  5|grandtp  |-16|  6|gauche   |b|
 -16|  5|main     |-16|  6|droite   |b|
 -16|  6|gauche   |-16|  7|gauche   |b|
+-16|  6|gauche   |-16|  6|droite   |m|
 -16|  6|droite   |-15|  6|         |d|
 -16|  6|droite   |-16|  7|droite   |b|
 -16|  7|gauche   |-17|  7|droite   |g|
+-16|  7|gauche   |-16|  7|droite   |m|
 -16|  7|gauche   |-16|  8|gauche   |b|
 -16|  7|droite   |-16|  8|droite   |b|
 -16|  8|gauche   |-17|  8|droite   |g|
+-16|  8|gauche   |-16|  8|droite   |m|
 -16|  8|gauche   |-16|  9|gauche   |b|
 -16|  8|droite   |-15|  8|         |d|
 -16|  8|droite   |-16|  9|droite   |b|
 -16|  9|gauche   |-17|  9|main     |g|
 -16|  9|gauche   |-16| 10|gauche   |b|
+-16|  9|gauche   |-16|  9|droite   |m|
 -16|  9|droite   |-16| 10|droite   |b|
 -16| 10|gauche   |-17| 10|main     |g|
+-16| 10|gauche   |-16| 10|droite   |m|
 -16| 10|gauche   |-16| 11|         |b|
 -16| 10|droite   |-15| 10|         |d|
 -16| 10|droite   |-16| 11|         |b|
 -16| 11|         |-16| 12|         |b|
--16| 12|         |-17| 12|grandtp  |g|
+-16| 12|         |-17| 12|basdroite|g|
 -16| 12|         |-15| 12|         |d|
 -16| 12|         |-16| 13|main     |b|
 -16| 13|porte    |-17| 13|main     |g|
@@ -941,9 +990,13 @@
 -16| 14|         |-16| 15|main     |b|
 -16| 15|tp       |-17| 15|tp       |g|
 -16| 15|tp       |-15| 15|porte    |d|
+-16| 15|tp       |-16| 15|main     |m|
 -16| 15|main     |-16| 16|droite   |b|
 -16| 16|droite   |-15| 16|gauche   |d|
 -16| 16|gauche   |-16| 17|porte    |b|
+-16| 16|gauche   |-16| 16|milieu   |m|
+-16| 16|droite   |-16| 16|milieu   |m|
+-16| 16|milieu   |-17| 16|haut     |g|
 -16| 17|porte    |-17| 17|vortex   |g|
 -16| 17|main     |-15| 17|main     |d|SALLE VERTE 3
 -16| 18|tp       |-17| 18|tp       |g|
@@ -959,6 +1012,7 @@
 -17|  3|         |-16|  3|main     |d|
 -17|  3|         |-17|  4|gauche   |b|
 -17|  4|gauche   |-18|  4|tp       |g|
+-17|  4|droite   |-17|  4|gauche   |m|
 -17|  4|droite   |-16|  4|main     |d|
 -17|  4|droite   |-17|  5|         |b|
 -17|  5|         |-18|  5|main     |g|
@@ -970,45 +1024,64 @@
 -17|  7|droite   |-16|  7|gauche   |d|
 -17|  7|gauche   |-17|  8|gauche   |b|
 -17|  7|milieu   |-17|  8|milieu   |b|
+-17|  7|milieu   |-17|  7|gauche   |m|
+-17|  7|droite   |-17|  7|gauche   |m|
 -17|  7|droite   |-17|  8|droite   |b|
 -17|  8|gauche   |-18|  8|grandtp  |g|
 -17|  8|droite   |-16|  8|gauche   |d|
 -17|  8|gauche   |-17|  9|tp       |b|
 -17|  8|milieu   |-17|  9|main     |b|
+-17|  8|milieu   |-17|  8|gauche   |m|
+-17|  8|droite   |-17|  8|gauche   |m|
 -17|  8|droite   |-17|  9|main     |b|
 -17|  9|main     |-18|  9|droite   |g|
 -17|  9|main     |-16|  9|gauche   |d|
 -17|  9|main     |-17| 10|droite   |b|
 -17|  9|tp       |-17| 10|tp       |b|
+-17|  9|main     |-17|  9|tp       |m|
 -17| 10|gauche   |-18| 10|main     |g|
+-17| 10|gauche   |-17| 10|tp       |m|
+-17| 10|droite   |-17| 10|tp       |m|
 -17| 10|gauche   |-17| 11|         |b|
 -17| 10|droite   |-16| 10|gauche   |d|
 -17| 10|tp       |-17| 11|         |b|
 -17| 11|         |-17| 12|tp       |b|bas gauche
--17| 11|         |-17| 12|main     |b|bas droite
--17| 12|main     |-18| 12|main     |g|
--17| 12|main     |-16| 12|         |d|
--17| 12|main     |-17| 13|gauche   |b|bas gauche
--17| 12|main     |-17| 13|droite   |b|bas droite
+-17| 11|         |-17| 12|droite   |b|bas droite
+-17| 12|gauche   |-18| 12|main     |g|
+-17| 12|gauche   |-17| 12|droite   |c|
+-17| 12|gauche   |-17| 12|tp       |m|
+-17| 12|basdroite|-17| 12|tp       |m|
+-17| 12|droite   |-17| 12|gauche   |c|
+-17| 12|droite   |-17| 12|basdroite|c|
+-17| 12|basdroite|-16| 12|         |d|
+-17| 12|gauche   |-17| 13|gauche   |b|
+-17| 12|basdroite|-17| 13|droite   |b|
 -17| 12|tp       |-17| 13|tp       |b|
 -17| 13|gauche   |-18| 13|main     |g|
 -17| 13|gauche   |-17| 14|gauche   |b|
 -17| 13|droite   |-16| 13|porte    |d|
 -17| 13|droite   |-17| 14|droite   |b|
 -17| 13|tp       |-17| 14|gauche   |b|
+-17| 13|tp       |-17| 13|gauche   |m|
+-17| 13|droite   |-17| 13|gauche   |m|
 -17| 14|gauche   |-18| 14|main     |g|
 -17| 14|droite   |-17| 15|main     |b|
+-17| 14|droite   |-17| 14|gauche   |m|
 -17| 15|tp       |-18| 15|droite   |g|
 -17| 15|tp       |-16| 15|tp       |d|
 -17| 15|porte    |-18| 15|droite   |g|
 -17| 15|porte    |-17| 16|main     |b|
+-17| 15|porte    |-17| 15|main     |m|
+-17| 15|tp       |-17| 15|main     |m|
 -17| 15|main     |-17| 16|haut     |b|
 -17| 16|haut     |-16| 16|milieu   |d|
 -17| 16|bas      |-16| 16|gauche   |d|
 -17| 16|bas      |-17| 17|vortex   |b|
 -17| 16|main     |-17| 16|bas      |c|
+-17| 16|main     |-17| 16|haut     |m|
+-17| 16|bas      |-17| 16|haut     |m|
 -17| 16|main     |-17| 17|porte    |b|bas gauche
--17| 16|main     |-17| 17|main     |b|bas milieu-gauche-SALLE VERTE 1
+-17| 16|main     |-17| 17|main     |b|bas milieu-gauche (SALLE VERTE 1)
 -17| 16|main     |-17| 17|vortex   |b|bas milieu-droite/droite
 -17| 17|main     |-16| 17|main     |d|SALLE VERTE 2
 -17| 17|bouton   |-18| 17|droite   |g|
@@ -1029,44 +1102,58 @@
 -18|  2|tp       |-19|  2|droite   |g|
 -18|  2|tp       |-17|  2|         |d|
 -18|  2|main     |-18|  3|         |b|
+-18|  2|main     |-18|  2|tp       |m|
 -18|  3|         |-18|  4|main     |b|
 -18|  4|tp       |-19|  4|         |g|
 -18|  4|tp       |-17|  4|gauche   |d|
 -18|  4|main     |-18|  5|tp       |b|
+-18|  4|main     |-18|  4|tp       |m|
 -18|  5|main     |-19|  5|droite   |g|
 -18|  5|main     |-17|  5|         |d|
 -18|  5|main     |-18|  6|gauche   |b|bas gauche
 -18|  5|main     |-18|  6|droite   |b|bas droite
 -18|  5|tp       |-18|  6|tp       |b|
+-18|  5|tp       |-18|  5|main     |m|
 -18|  6|tp       |-18|  7|tp       |b|
+-18|  6|tp       |-18|  6|gauche   |m|
+-18|  6|droite   |-18|  6|gauche   |m|
 -18|  6|gauche   |-18|  7|main     |b|
 -18|  6|droite   |-18|  7|main     |b|
 -18|  6|droite   |-17|  6|         |d|
 -18|  7|main     |-19|  7|droite   |g|
 -18|  7|main     |-18|  8|main     |b|
+-18|  7|tp       |-18|  7|main     |m|
 -18|  7|tp       |-18|  8|petittp  |b|
 -18|  8|grandtp  |-19|  8|droite   |g|
+-18|  8|grandtp  |-18|  8|main     |m|
+-18|  8|petittp  |-18|  8|main     |m|
 -18|  8|grandtp  |-17|  8|gauche   |d|
 -18|  8|petittp  |-18|  9|milieu   |b|
 -18|  8|main     |-18|  9|gauche   |b|
 -18|  9|gauche   |-18| 10|main     |b|
 -18|  9|milieu   |-18| 10|tp       |b|
+-18|  9|milieu   |-18|  9|gauche   |m|
+-18|  9|droite   |-18|  9|gauche   |m|
 -18|  9|droite   |-18| 10|main     |b|
 -18|  9|droite   |-17|  9|main     |d|
 -18| 10|main     |-19| 10|         |g|
 -18| 10|main     |-17| 10|gauche   |d|
 -18| 10|tp       |-18| 11|tp       |b|
+-18| 10|tp       |-18| 10|main     |m|
 -18| 11|main     |-19| 11|         |g|
 -18| 11|main     |-18| 12|main     |b|
 -18| 11|tp       |-18| 12|tp       |b|
--18| 12|main     |-17| 12|main     |d|
+-18| 11|tp       |-18| 11|main     |m|
+-18| 12|main     |-17| 12|gauche   |d|
 -18| 12|main     |-18| 13|main     |b|
 -18| 12|tp       |-18| 13|tp       |b|
+-18| 12|tp       |-18| 12|main     |m|
 -18| 13|main     |-19| 13|droite   |g|
 -18| 13|main     |-17| 13|gauche   |d|
 -18| 13|main     |-18| 14|haut     |b|bas gauche
 -18| 13|main     |-18| 14|main     |b|bas droite
 -18| 13|tp       |-18| 14|tp       |b|
+-18| 13|tp       |-18| 13|main     |m|
 -18| 14|haut     |-18| 14|main     |c|
 -18| 14|haut     |-19| 14|haut     |g|
 -18| 14|main     |-19| 14|bas      |g|
@@ -1075,6 +1162,8 @@
 -18| 14|tp       |-18| 15|main     |b|
 -18| 15|main     |-18| 16|         |b|
 -18| 15|gauche   |-19| 15|         |g|
+-18| 15|gauche   |-18| 15|main     |m|
+-18| 15|droite   |-18| 15|main     |m|
 -18| 15|gauche   |-18| 15|droite   |c|
 -18| 15|droite   |-17| 15|tp       |d|haut droite
 -18| 15|droite   |-17| 15|porte    |d|bas droite
@@ -1082,10 +1171,12 @@
 -18| 16|         |-18| 17|droite   |b|bas droite
 -18| 17|tp       |-17| 17|porte    |d|
 -18| 17|tp       |-18| 18|tp       |b|
+-18| 17|droite   |-18| 17|gauche   |m|
 -18| 17|tp       |-18| 17|gauche   |c|frame perfect TP
 -18| 17|gauche   |-18| 18|main     |b|
 -18| 18|main     |-19| 18|         |g|
 -18| 18|tp       |-17| 18|tp       |d|
+-18| 18|tp       |-18| 18|main     |m|
 -18| 18|tp       |-18| 19|         |b|
 -18| 19|         |-18| 20|         |b|
 -18| 20|         |-19| 20|         |g|
@@ -1094,25 +1185,31 @@
 -19|  1|         |-20|  1|droite   |g|
 -19|  1|         |-18|  1|         |d|
 -19|  2|gauche   |-20|  2|droite   |g|
+-19|  2|gauche   |-19|  2|droite   |m|
 -19|  2|gauche   |-19|  3|gauche   |b|
 -19|  2|droite   |-18|  2|tp       |d|
 -19|  2|droite   |-19|  3|droite   |b|
 -19|  3|gauche   |-19|  4|         |b|
 -19|  3|droite   |-19|  4|         |b|
+-19|  3|gauche   |-19|  3|droite   |m|
 -19|  4|         |-18|  4|tp       |d|
 -19|  4|         |-19|  5|gauche   |b|
 -19|  5|gauche   |-20|  5|         |g|
 -19|  5|gauche   |-19|  6|main     |b|
 -19|  5|droite   |-18|  5|main     |d|
 -19|  5|droite   |-19|  6|tp       |b|
+-19|  5|droite   |-19|  5|gauche   |m|
 -19|  6|main     |-20|  6|         |g|
 -19|  6|main     |-19|  7|droite   |b|
 -19|  6|tp       |-19|  7|gauche   |b|
+-19|  6|tp       |-19|  6|main     |m|
 -19|  7|gauche   |-20|  7|         |g|
 -19|  7|gauche   |-19|  8|gauche   |b|
+-19|  7|gauche   |-19|  7|droite   |m|
 -19|  7|droite   |-18|  7|main     |d|
 -19|  7|droite   |-19|  8|droite   |b|
 -19|  8|gauche   |-19|  9|         |b|
+-19|  8|gauche   |-19|  8|droite   |m|
 -19|  8|droite   |-18|  8|grandtp  |d|
 -19|  9|         |-19| 10|         |b|
 -19| 10|         |-18| 10|main     |d|
@@ -1120,13 +1217,16 @@
 -19| 11|         |-18| 11|main     |d|
 -19| 11|         |-19| 12|tp       |b|
 -19| 12|tp       |-20| 12|bas      |g|
+-19| 12|tp       |-19| 12|main     |m|
 -19| 12|main     |-20| 12|haut     |g|
 -19| 12|main     |-19| 13|gauche   |b|
 -19| 13|gauche   |-19| 14|tp       |b|bas gauche
 -19| 13|gauche   |-19| 14|bas      |b|bas droite
 -19| 13|droite   |-18| 13|main     |d|
+-19| 13|droite   |-19| 13|gauche   |m|
 -19| 13|droite   |-19| 14|haut     |b|
 -19| 14|haut     |-18| 14|haut     |d|
+-19| 14|haut     |-19| 14|bas      |m|
 -19| 14|bas      |-18| 14|main     |d|
 -19| 14|tp       |-19| 14|bas      |c|
 -19| 14|tp       |-19| 15|         |b|
@@ -1134,7 +1234,8 @@
 -19| 16|         |-20| 16|         |g|
 -19| 16|         |-19| 17|haut     |b|
 -19| 17|haut     |-20| 17|porte    |g|
--19| 17|bas      |-20| 17|tp       |g|
+-19| 17|bas      |-20| 17|tpdroite |g|
+-19| 17|bas      |-19| 17|haut     |m|
 -19| 17|bas      |-19| 18|         |b|
 -19| 18|         |-18| 18|main     |d|
 -19| 18|         |-19| 19|         |b|
@@ -1145,9 +1246,11 @@
 -20|  0|         |-20|  1|         |b|
 -20|  1|gauche   |-20|  2|gauche   |b|
 -20|  1|droite   |-20|  2|droite   |b|
+-20|  1|droite   |-20|  1|gauche   |m|
 -20|  1|droite   |-19|  1|         |d|
 -20|  2|gauche   |-20|  3|         |b|
 -20|  2|droite   |-19|  2|gauche   |d|
+-20|  2|droite   |-20|  2|gauche   |m|
 -20|  3|         |-20|  4|         |b|
 -20|  4|         |-20|  5|         |b|
 -20|  5|         |-19|  5|gauche   |d|
@@ -1160,7 +1263,9 @@
 -20| 10|         |-20| 11|gauche   |b|bas gauche
 -20| 10|         |-20| 11|droite   |b|bas droite
 -20| 11|droite   |-20| 12|haut     |b|
+-20| 11|droite   |-20| 11|gauche   |m|
 -20| 12|haut     |-19| 12|main     |d|
+-20| 12|haut     |-20| 12|bas      |m|
 -20| 12|bas      |-19| 12|tp       |d|
 -20| 12|bas      |-20| 13|         |b|
 -20| 13|         |-20| 14|         |b|
@@ -1171,10 +1276,15 @@
 -20| 17|porte    |-19| 17|haut     |d|
 -20| 17|porte    |-20| 18|droite   |b|
 -20| 17|main     |-20| 18|gauche   |b|
--20| 17|main     |-20| 17|tp       |c|
--20| 17|tp       |-19| 17|bas      |d|
+-20| 17|main     |-20| 17|tpgauche |c|
+-20| 17|tpgauche |-20| 17|tpdroite |c|
+-20| 17|tpgauche |-20| 17|porte    |c|frame perfect TP
+-20| 17|tpdroite |-19| 17|bas      |d|
+-20| 17|tpdroite |-20| 17|porte    |m|
 -20| 18|gauche   |-20| 19|vortex   |b|passage secret
+-20| 18|gauche   |-20| 18|droite   |m|
 -20| 18|droite   |-20| 19|main     |b|
+-20| 19|vortex   |-20| 19|main     |m|
 -20| 19|main     |-19| 19|         |d|
 -20| 19|main     |-20| 20|         |b|
 
@@ -1225,6 +1335,27 @@
 -16| 20|bouton   |-13|  7|main     |v|
  -8|  1|vortex   |-17| 20|bouton   |v|BOUTON SALLE VERTE 16
 -17| 20|bouton   | -8|  1|droite   |v|
+
+-17| 17|bouton   | -9|  0|         |M|
+-17| 17|porte    | -9|  0|         |M|
+-17| 17|vortex   | -9|  0|         |M|
+-16| 17|bouton   | -9|  0|         |M|
+-16| 17|porte    | -9|  0|         |M|
+-15| 17|bouton   | -9|  0|         |M|
+-14| 17|bouton   | -9|  0|         |M|
+-14| 18|bouton   | -9|  0|         |M|
+-15| 18|bouton   | -9|  0|         |M|
+-16| 18|bouton   | -9|  0|         |M|
+-16| 18|tp       | -9|  0|         |M|
+-17| 18|bouton   | -9|  0|         |M|
+-17| 18|tp       | -9|  0|         |M|
+-17| 19|bouton   | -9|  0|         |M|
+-16| 19|bouton   | -9|  0|         |M|
+-14| 19|bouton   | -9|  0|         |M|
+-14| 20|bouton   | -9|  0|         |M|
+-15| 20|bouton   | -9|  0|         |M|
+-16| 20|bouton   | -9|  0|         |M|
+-17| 20|bouton   | -9|  0|         |M|
 
  -4|  5|main     |-20| 20|         |v|vortex gauche/bas/droite (NECESSITE BOUTON)
  -7|  1|         |-20| 20|         |v|

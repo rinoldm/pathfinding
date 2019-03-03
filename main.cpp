@@ -12,7 +12,6 @@ Heldkarp heldkarp;
 
 int main()
 {
-
     for (unsigned int i = 0; i != MUSTPASSNB; ++i)
         for (unsigned int j = 0; j != MUSTPASSNB; ++j)
             laby.dist[i][j] = dijkstra.findShortestPath(laby.mustPass[i], laby.mustPass[j]);

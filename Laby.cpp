@@ -79,7 +79,7 @@ Laby::Laby()
         "(-17;20)_bouton", "(-16;20)_bouton", "(-15;20)_bouton", "(-14;20)_bouton"
     };
 
-    this->mustPass.insert(this->mustPass.begin(), this->entrance =  "(0;0)");
+    this->mustPass.insert(this->mustPass.begin(), this->entrance = "(0;0)");
     this->mustPass.insert(this->mustPass.end(),   this->exit     = "(-17;22)");
 
     if (this->mustPass.size() != MUSTPASSNB)
