@@ -1,41 +1,45 @@
 #include "Heldkarp.hh"
 
-#include "Laby.hh"
-extern Laby laby;
+namespace held_karp {
+const State State::delete_visited(NodeId node_id) noexcept {
+  return State{this->visited & ~(1 << node_id), this->last};
+}
+bool State::is_visited(NodeId node_id) noexcept {
+  return (this->visited & (1 << node_id)) != 0;
+}
+}
 
-int Heldkarp::findShortestTour(std::array<std::array<int, MUSTPASSNB + 1>, MUSTPASSNB + 1> dist, int end, std::set<int> nodes)
-{
-    int bits = 0;
-    for (auto it = nodes.begin(); it != nodes.end(); ++it)
-        bits |= (1 << *it);
+Heldkarp::Heldkarp(held_karp::Dist dist) : dist(dist) {}
 
-    if (this->visited[bits][end])
-        return (this->visited[bits][end]);
+held_karp::Cost Heldkarp::get(held_karp::NodeId end) {
+  held_karp::State state = held_karp::State{held_karp::FULL_BIT_SET, end};
+  return this->cost(state);
+}
 
-    if (nodes.empty())
-        return (this->visited[bits][end] = dist[end][0]);
-
-    if (++this->counter > ((this->percent + 1) * ((1 << (MUSTPASSNB - 1)) * MUSTPASSNB - 2)) / 1000)
-        ++this->percent && std::cout << "\r" << this->percent / 10 << "." << this->percent % 10 << "%";
-
-    int minFound = MAX_DISTANCE;
-    for (auto it = nodes.begin(); it != nodes.end(); ++it)
-    {
-        std::set<int> newNodes(nodes);
-        int newEnd = *it;
-        newNodes.erase(newEnd);
-        int newDist = dist[end][newEnd] + this->findShortestTour(dist, newEnd, newNodes);
-
-        if (newDist < minFound)
-        {
-            for (auto it2 = laby.dependencies.begin(); it2 != laby.dependencies.end(); ++it2)
-                if (newEnd == (*it2).first && !nodes.count((*it2).second))
-                    newDist = MAX_DISTANCE;
-
-            minFound = newDist;
-            this->previous[bits][end] = newEnd;
-        }
+held_karp::Cost Heldkarp::cost(held_karp::State state) {
+  if (this->memo[state.visited][state.last].cost != 0) {
+    return this->memo[state.visited][state.last].cost;
+  }
+  if (state.visited == held_karp::EMPTY_BIT_SET) {
+    held_karp::Cost cost = 0;
+    this->memo[state.visited][state.last] = {cost, state.last};
+    return cost;
+  }
+  held_karp::Cost best_cost = held_karp::INFINITY;
+  held_karp::NodeId best_parent = 0;
+  for (held_karp::NodeId node_id = 0; node_id < held_karp::NODE_COUNT; node_id++) {
+    if (state.is_visited(node_id)) {
+      held_karp::Cost last_component_cost = this->dist[node_id][state.last];
+      if (last_component_cost >= held_karp::INFINITY) {
+        continue;
+      }
+      held_karp::Cost cost = this->cost(state.delete_visited(node_id)) + last_component_cost;
+      if (cost < best_cost) {
+        best_cost = cost;
+        best_parent = node_id;
+      }
     }
-
-    return (this->visited[bits][end] = minFound);
+  }
+  this->memo[state.visited][state.last] = {best_cost, best_parent};
+  return best_cost;
 }
