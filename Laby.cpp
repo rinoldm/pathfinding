@@ -12,32 +12,12 @@ Link::Link(std::string from, std::string to, int weight, std::string comment, in
     this->death = death;
 }
 
-void Laby::addLink(std::string from, std::string to, int weight, bool bothways, std::string comment, int death)
+void Laby::addLink(std::string from, std::string to, int weight, std::string comment, int death)
 {
     if (this->graph.count(to) == 0)
         this->graph[to] = std::vector<Link>();
 
     this->graph[from].push_back(Link(from, to, weight, comment, death));
-    if (bothways)
-        this->graph[to].push_back(Link(to, from, weight, comment, death));
-}
-
-void Laby::addDummy()
-{
-    this->mustPass.push_back("dummy");
-
-    for (int i = 0; i < MUSTPASSNB; ++i)
-    {
-        this->dist[MUSTPASSNB][i] = MAX_DISTANCE;
-        this->dist[i][MUSTPASSNB] = MAX_DISTANCE;
-    }
-
-    this->addLink(this->mustPass[this->mustPass.size() - 2], "dummy", 0);
-    this->dist[MUSTPASSNB - 1][MUSTPASSNB] = 0;
-
-    this->addLink("dummy", this->mustPass[0], 0);
-    this->dist[MUSTPASSNB][0] = 0;
-
 }
 
 Link Laby::findLink(std::string from, std::string to)
@@ -88,16 +68,10 @@ Laby::Laby()
         std::exit(1);
     }
 
-    std::vector<std::pair<std::string, std::string>> dep =
-    {
-        //std::make_pair("(0;2)", "(0;3)"),
-        //std::make_pair("(-3;0)", "(-1;0)"),
-        //std::make_pair("(-1;2)", "(0;2)"),
-        //std::make_pair("(-2;2)_tp", "(-2;2)_main")
-    };
-
-    for (auto it = dep.begin(); it != dep.end(); ++it)
-        this->dependencies.push_back(std::make_pair(parser.indexOf(this->mustPass, (*it).first), parser.indexOf(this->mustPass, (*it).second)));
+    // TODO: dependencies
+    // (-4;5)_boutons
+    // (-5;10)_haut
+    // (-9;5)_bouton
 
     parser.getLinks();
 }

@@ -3,7 +3,7 @@
 #include "Laby.hh"
 extern Laby laby;
 
-int Heldkarp::findShortestTour(std::array<std::array<int, MUSTPASSNB + 1>, MUSTPASSNB + 1> dist, int end, std::set<int> nodes)
+int Heldkarp::findShortestTour(std::array<std::array<int, MUSTPASSNB>, MUSTPASSNB> dist, int end, std::set<int> nodes)
 {
     int bits = 0;
     for (auto it = nodes.begin(); it != nodes.end(); ++it)
@@ -13,10 +13,10 @@ int Heldkarp::findShortestTour(std::array<std::array<int, MUSTPASSNB + 1>, MUSTP
         return (this->visited[bits][end]);
 
     if (nodes.empty())
-        return (this->visited[bits][end] = dist[end][0]);
+        return (this->visited[bits][end] = 0);
 
-    if (++this->counter > ((this->percent + 1) * ((1 << (MUSTPASSNB - 1)) * MUSTPASSNB - 2)) / 1000)
-        ++this->percent && std::cout << "\r" << this->percent / 10 << "." << this->percent % 10 << "%";
+    if (++this->counter > (this->percent * (((1 << (MUSTPASSNB - 2)) - 1) * (MUSTPASSNB - 1) + 1)) / 100)
+        ++this->percent && std::cout << "\r" << "Held-Karp : " << this->percent << "%";
 
     int minFound = MAX_DISTANCE;
     for (auto it = nodes.begin(); it != nodes.end(); ++it)
@@ -28,10 +28,6 @@ int Heldkarp::findShortestTour(std::array<std::array<int, MUSTPASSNB + 1>, MUSTP
 
         if (newDist < minFound)
         {
-            for (auto it2 = laby.dependencies.begin(); it2 != laby.dependencies.end(); ++it2)
-                if (newEnd == (*it2).first && !nodes.count((*it2).second))
-                    newDist = MAX_DISTANCE;
-
             minFound = newDist;
             this->previous[bits][end] = newEnd;
         }

@@ -3,6 +3,15 @@
 #include "Laby.hh"
 extern Laby laby;
 
+int Dijkstra::indexOf(std::vector<std::string> v, std::string s)
+{
+    auto d = std::find(v.begin(), v.end(), s);
+    if (d == v.end())
+        std::cout << "INDEXOF ERROR " << s << std::endl;
+    return (d - v.begin());
+}
+
+
 std::string Dijkstra::findClosestNode(std::map<std::string, int> dist, std::set<std::string> nodes)
 {
     int minDistanceFound = MAX_DISTANCE;
@@ -10,7 +19,7 @@ std::string Dijkstra::findClosestNode(std::map<std::string, int> dist, std::set<
 
     for (auto i = nodes.begin(); i != nodes.end(); ++i)
     {
-        if (*i != "dummy" && dist[*i] < minDistanceFound)
+        if (dist[*i] < minDistanceFound)
         {
             minDistanceFound = dist[*i];
             minNodeFound = *i;
@@ -45,6 +54,11 @@ int Dijkstra::findShortestPath(std::string start, std::string target, bool print
         unvisitedNodes.insert((*i).first);
     }
     dist[start] = 0;
+
+    if (printPath)
+        std::cout << "Distance " << start << " - " << target<< " : " << laby.dist[this->indexOf(laby.mustPass, start)][this->indexOf(laby.mustPass, target)] << std::endl;
+    else if (++this->counter > (this->percent * (MUSTPASSNB * MUSTPASSNB) / 100))
+        ++this->percent && std::cout << "\r" << "Dijkstra : " << this->percent << "%";
 
     while (unvisitedNodes.size() > 0)
     {

@@ -8,14 +8,6 @@ Parser::Parser(std::string filename)
     this->filename = filename;
 }
 
-int Parser::indexOf(std::vector<std::string> v, std::string s)
-{
-    auto d = std::find(v.begin(), v.end(), s);
-    if (d == v.end())
-        std::cout << "INDEXOF ERROR " << s << std::endl;
-    return (d - v.begin());
-}
-
 static inline std::string trim(std::string &s) {
     s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) {
         return !std::isspace(ch);
@@ -100,7 +92,7 @@ void Parser::getLinks()
 
         std::istringstream linestream(line);
         std::string token;
-        std::cout << "|" << line << "|" << std::endl;
+
         std::getline(linestream, token, '|');
         x1 = std::stoi(token);
         std::getline(linestream, token, '|');
@@ -122,6 +114,6 @@ void Parser::getLinks()
 
         std::string from = std::string("(") + std::to_string(x1) + std::string(";") + std::to_string(y1) + std::string(")") + (zone1 != "" ? "_" + zone1 : "");
         std::string to   = std::string("(") + std::to_string(x2) + std::string(";") + std::to_string(y2) + std::string(")") + (zone2 != "" ? "_" + zone2 : "");
-        laby.addLink(from, to, this->getLevelCost(type), false, this->getComment(type, comment), this->getDeathCost(type));
+        laby.addLink(from, to, this->getLevelCost(type), this->getComment(type, comment), this->getDeathCost(type));
     }
 }

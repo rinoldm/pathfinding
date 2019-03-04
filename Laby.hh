@@ -27,11 +27,9 @@ public:
     std::string entrance;
     std::string exit;
     std::vector<std::string> mustPass;
-    std::vector<std::pair<int, int>> dependencies;
-    std::array<std::array<int, MUSTPASSNB + 1>, MUSTPASSNB + 1> dist;
+    std::array<std::array<int, MUSTPASSNB>, MUSTPASSNB> dist;
 
-    void addLink(std::string from, std::string to, int weight, bool bothways = false, std::string comment = "", int death = 0);
-    void addDummy();
+    void addLink(std::string from, std::string to, int weight, std::string comment = "", int death = 0);
     Link findLink(std::string from, std::string to);
     void printGraph();
 
