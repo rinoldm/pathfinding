@@ -1,8 +1,5 @@
 #include "Heldkarp.hh"
 
-#include "Laby.hh"
-extern Laby laby;
-
 int Heldkarp::findShortestTour(std::array<std::array<int, MUSTPASSNB>, MUSTPASSNB> dist, int end, std::set<int> nodes)
 {
     int bits = 0;

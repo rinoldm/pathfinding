@@ -3,13 +3,14 @@
 #include "Heldkarp.hh"
 #include "Parser.hh"
 
-Parser parser("links.txt");
-Laby laby;
-Dijkstra dijkstra;
 Heldkarp heldkarp;
 
 int main()
 {
+    Parser parser("links.txt");
+    Laby laby(parser);
+    Dijkstra dijkstra(laby);
+
     for (unsigned int i = 0; i != MUSTPASSNB; ++i)
         for (unsigned int j = 0; j != MUSTPASSNB; ++j)
             laby.dist[i][j] = dijkstra.findShortestPath(laby.mustPass[i], laby.mustPass[j]);

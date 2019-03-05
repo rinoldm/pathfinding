@@ -1,7 +1,6 @@
 #include "Laby.hh"
 
 #include "Parser.hh"
-extern Parser parser;
 
 Link::Link(std::string from, std::string to, int weight, std::string comment, int death)
 {
@@ -49,7 +48,7 @@ void Laby::printGraph()
     std::cout << std::endl;
 }
 
-Laby::Laby()
+Laby::Laby(Parser &parser)
 {
     this->mustPass =
     {
@@ -73,5 +72,5 @@ Laby::Laby()
     // (-5;10)_haut
     // (-9;5)_bouton
 
-    parser.getLinks();
+    parser.getLinks(*this);
 }
