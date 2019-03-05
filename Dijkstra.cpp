@@ -1,7 +1,6 @@
+#include <iostream>
 #include "Dijkstra.hh"
-
 #include "Laby.hh"
-extern Laby laby;
 
 int Dijkstra::indexOf(std::vector<std::string> v, std::string s)
 {
@@ -93,4 +92,8 @@ int Dijkstra::findShortestPath(std::string start, std::string target, bool print
         }
     }
     return (MAX_DISTANCE);
+}
+
+Dijkstra::Dijkstra(Laby &laby): laby(laby)
+{
 }

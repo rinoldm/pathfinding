@@ -2,7 +2,7 @@
 #define HELDKARP_HH_INCLUDED
 
 #include <set>
-
+#include <array>
 #include "Laby.hh"
 
 class Heldkarp
