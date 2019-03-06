@@ -1,34 +1,29 @@
 #include "Heldkarp.hh"
 
-int Heldkarp::findShortestTour(std::array<std::array<int, MUSTPASSNB>, MUSTPASSNB> dist, int end, std::set<int> nodes)
+int Heldkarp::findShortestTour(std::array<std::array<int, MUSTPASSNB>, MUSTPASSNB> dist, int end, int nodeBits)
 {
-    int bits = 0;
-    for (auto it = nodes.begin(); it != nodes.end(); ++it)
-        bits |= (1 << *it);
+    if (this->visited[nodeBits][end])
+        return (this->visited[nodeBits][end]);
 
-    if (this->visited[bits][end])
-        return (this->visited[bits][end]);
+    if (!nodeBits)
+        return (this->visited[nodeBits][end] = 0);
 
-    if (nodes.empty())
-        return (this->visited[bits][end] = 0);
-
-    if (++this->counter > (this->percent * (((1 << (MUSTPASSNB - 2)) - 1) * (MUSTPASSNB - 1) + 1)) / 100)
+    if (++this->counter > ((this->percent + 1) * ((1 << (MUSTPASSNB - 1)) * MUSTPASSNB - MUSTPASSNB)) / 100)
         ++this->percent && std::cout << "\r" << "Held-Karp : " << this->percent << "%";
 
     int minFound = MAX_DISTANCE;
-    for (auto it = nodes.begin(); it != nodes.end(); ++it)
+    for (int i = 0; i < MUSTPASSNB; ++i)
     {
-        std::set<int> newNodes(nodes);
-        int newEnd = *it;
-        newNodes.erase(newEnd);
-        int newDist = dist[end][newEnd] + this->findShortestTour(dist, newEnd, newNodes);
-
-        if (newDist < minFound)
+        if (nodeBits & (1 << i))
         {
-            minFound = newDist;
-            this->previous[bits][end] = newEnd;
+            int newDist = dist[end][i] + this->findShortestTour(dist, i, nodeBits & ~(1 << i));
+            if (newDist < minFound)
+            {
+                minFound = newDist;
+                this->previous[nodeBits][end] = i;
+            }
         }
     }
 
-    return (this->visited[bits][end] = minFound);
+    return (this->visited[nodeBits][end] = minFound);
 }

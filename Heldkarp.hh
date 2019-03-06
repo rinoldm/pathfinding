@@ -13,7 +13,7 @@ public:
     int counter = 0;
     int percent = 0;
 
-    int findShortestTour(std::array<std::array<int, MUSTPASSNB>, MUSTPASSNB> dist, int end, std::set<int> nodes);
+    int findShortestTour(std::array<std::array<int, MUSTPASSNB>, MUSTPASSNB> dist, int end, int nodeBits);
 };
 
 #endif // HELDKARP_HH_INCLUDED

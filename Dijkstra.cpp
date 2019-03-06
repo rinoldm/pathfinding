@@ -61,10 +61,8 @@ void Dijkstra::findShortestPath(std::string start)
     while (unvisitedNodes.size() > 0)
     {
         std::string candidateNode = this->findClosestNode(dist[start], unvisitedNodes);
-
         if (candidateNode == "UNDEFINED")
             break;
-
         unvisitedNodes.erase(candidateNode);
 
         for (auto i = laby.graph.begin(); i != laby.graph.end(); ++i)
