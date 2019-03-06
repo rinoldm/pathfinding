@@ -1,8 +1,5 @@
 #include "Parser.hh"
 
-#include "Laby.hh"
-extern Laby laby;
-
 Parser::Parser(std::string filename)
 {
     this->filename = filename;
@@ -78,9 +75,14 @@ void Parser::checkLink(int x1, int y1, std::string zone1, int x2, int y2, std::s
         }
 }
 
-void Parser::getLinks()
+void Parser::getLinks(Laby &laby)
 {
     std::ifstream filestream(this->filename);
+    if(filestream.fail()){
+        std::string message("I/O Error");
+        std::cerr << message << std::endl;
+        throw message;
+    }
     std::string line;
     while (std::getline(filestream, line))
     {

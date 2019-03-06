@@ -1,7 +1,6 @@
+#include <iostream>
 #include "Dijkstra.hh"
-
 #include "Laby.hh"
-extern Laby laby;
 
 int Dijkstra::indexOf(std::vector<std::string> v, std::string s)
 {
@@ -12,16 +11,16 @@ int Dijkstra::indexOf(std::vector<std::string> v, std::string s)
 }
 
 
-std::string Dijkstra::findClosestNode(std::map<std::string, int> dist, std::set<std::string> nodes)
+std::string Dijkstra::findClosestNode(std::map<std::string, int> distance, std::set<std::string> nodes)
 {
     int minDistanceFound = MAX_DISTANCE;
     std::string minNodeFound = "UNDEFINED";
 
     for (auto i = nodes.begin(); i != nodes.end(); ++i)
     {
-        if (dist[*i] < minDistanceFound)
+        if (distance[*i] < minDistanceFound)
         {
-            minDistanceFound = dist[*i];
+            minDistanceFound = distance[*i];
             minNodeFound = *i;
         }
     }
@@ -31,50 +30,42 @@ std::string Dijkstra::findClosestNode(std::map<std::string, int> dist, std::set<
 
 void Dijkstra::printShortestPath(std::string start, std::string target)
 {
+    std::cout << "Distance " << start << " - " << target << " : " << laby.dist[this->indexOf(laby.mustPass, start)][this->indexOf(laby.mustPass, target)] << std::endl;
+
     std::vector<std::string> path;
     while (target != start)
     {
-        path.insert(path.begin(), " " + laby.findLink(prev[target], target).comment + " -> " + target);
-        target = this->prev[target];
+        path.insert(path.begin(), " " + laby.findLink(prev[start][target], target).comment + " -> " + target);
+        target = this->prev[start][target];
     }
     for (auto i = path.begin(); i != path.end(); ++i)
         std::cout << *i << std::endl;
     std::cout << std::endl;
 }
 
-int Dijkstra::findShortestPath(std::string start, std::string target, bool printPath)
+void Dijkstra::findShortestPath(std::string start)
 {
     std::set<std::string> unvisitedNodes;
-    std::map<std::string, int> dist;
 
     for (auto i = laby.graph.begin(); i != laby.graph.end(); ++i)
     {
-        dist[(*i).first] = MAX_DISTANCE;
-        prev[(*i).first] = "UNDEFINED";
+        dist[start][(*i).first] = MAX_DISTANCE;
+        prev[start][(*i).first] = "UNDEFINED";
         unvisitedNodes.insert((*i).first);
     }
-    dist[start] = 0;
+    dist[start][start] = 0;
 
-    if (printPath)
-        std::cout << "Distance " << start << " - " << target<< " : " << laby.dist[this->indexOf(laby.mustPass, start)][this->indexOf(laby.mustPass, target)] << std::endl;
-    else if (++this->counter > (this->percent * (MUSTPASSNB * MUSTPASSNB) / 100))
-        ++this->percent && std::cout << "\r" << "Dijkstra : " << this->percent << "%";
+    if (++this->counter > ((this->percent * MUSTPASSNB) / 100))
+        ++this->percent && std::cout << "\r" << "Dijkstra : " << this->percent << "/" << MUSTPASSNB;
 
     while (unvisitedNodes.size() > 0)
     {
-        std::string candidateNode = this->findClosestNode(dist, unvisitedNodes);
+        std::string candidateNode = this->findClosestNode(dist[start], unvisitedNodes);
 
         if (candidateNode == "UNDEFINED")
-            return (MAX_DISTANCE);
+            break;
 
         unvisitedNodes.erase(candidateNode);
-
-        if (candidateNode == target)
-        {
-            if (printPath)
-                this->printShortestPath(start, target);
-            return (dist[target]);
-        }
 
         for (auto i = laby.graph.begin(); i != laby.graph.end(); ++i)
         {
@@ -82,15 +73,16 @@ int Dijkstra::findShortestPath(std::string start, std::string target, bool print
             {
                 if (candidateNode == (*j).from)
                 {
-                    int alt = dist[candidateNode] + (*j).weight;
-                    if (alt < dist[(*j).to])
+                    int alt = dist[start][candidateNode] + (*j).weight;
+                    if (alt < dist[start][(*j).to])
                     {
-                        dist[(*j).to] = alt;
-                        prev[(*j).to] = candidateNode;
+                        dist[start][(*j).to] = alt;
+                        prev[start][(*j).to] = candidateNode;
                     }
                 }
             }
         }
     }
-    return (MAX_DISTANCE);
 }
+
+Dijkstra::Dijkstra(Laby &laby): laby(laby) {}

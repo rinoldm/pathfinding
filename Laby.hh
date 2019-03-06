@@ -4,6 +4,9 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include "Parser.hh"
+
+class Parser;
 
 #define MUSTPASSNB 17
 #define MAX_DISTANCE 666666
@@ -33,7 +36,7 @@ public:
     Link findLink(std::string from, std::string to);
     void printGraph();
 
-    Laby();
+    explicit Laby(Parser &parser);
 };
 
 #endif // LABY_HH_INCLUDED
