@@ -21,6 +21,7 @@ public:
     std::string findClosestNode(std::map<std::string, int> dist, std::set<std::string> nodes);
     void printShortestPath(std::string start, std::string target);
     void findShortestPath(std::string start);
+
     explicit Dijkstra(Laby &laby);
 };
 
