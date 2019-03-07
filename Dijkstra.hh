@@ -1,16 +1,14 @@
 #ifndef DIJKSTRA_HH_INCLUDED
 #define DIJKSTRA_HH_INCLUDED
 
-#include <map>
 #include <set>
-#include <vector>
-#include <algorithm>
 #include "Laby.hh"
 
 class Dijkstra
 {
 private:
     Laby &laby;
+
 public:
     std::map<std::string, std::map<std::string, int>> dist;
     std::map<std::string, std::map<std::string, std::string>> prev;

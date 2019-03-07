@@ -81,8 +81,7 @@
  -1|  9|         | -1| 10|main     |b|bas droite
  -1| 10|gauche   | -2| 10|grandtp  |g|
  -1| 10|gauche   | -1| 10|main     |m|
- -1| 10|main     | -1| 11|         |b|bas gauche
- -1| 10|main     | -1| 11|         |b|bas droite
+ -1| 10|main     | -1| 11|         |b|
  -1| 11|         |  0| 11|         |d|
  -1| 11|         | -2| 11|         |g|
  -1| 11|         | -1| 12|         |b|
@@ -560,8 +559,7 @@
 -10|  5|         |-10|  6|tp       |b|
 -10|  6|main     |-11|  6|tp       |g|
 -10|  6|main     | -9|  6|         |d|
--10|  6|tp       |-10|  6|main     |c|frame perfect TP
--10|  6|tp       |-10|  6|main     |m|
+-10|  6|tp       |-10|  6|main     |c|frame perfect TP (ou mort)
 -10|  6|tp       |-10|  7|haut     |b|
 -10|  7|haut     |-11|  7|main     |g|
 -10|  7|bas      |-11|  7|tp       |g|

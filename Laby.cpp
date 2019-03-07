@@ -1,21 +1,38 @@
 #include "Laby.hh"
 
-#include "Parser.hh"
+Link::Link(std::string from, std::string to, int weight, std::string comment, int death) : from(from), to(to), weight(weight), comment(comment), death(death) {}
 
-Link::Link(std::string from, std::string to, int weight, std::string comment, int death)
+Laby::Laby(Parser &parser)
 {
-    this->from = from;
-    this->to = to;
-    this->weight = weight;
-    this->comment = comment;
-    this->death = death;
+    this->mustPass =
+    {
+        "(-17;17)_bouton", "(-16;17)_bouton", "(-15;17)_bouton", "(-14;17)_bouton",
+        "(-17;18)_bouton", "(-16;18)_bouton", "(-15;18)_bouton", "(-14;18)_bouton",
+        "(-17;19)_bouton", "(-16;19)_bouton",                    "(-14;19)_bouton",
+        "(-17;20)_bouton", "(-16;20)_bouton", "(-15;20)_bouton", "(-14;20)_bouton"
+    };
+
+    this->mustPass.insert(this->mustPass.begin(), this->entrance = "(0;0)");
+    this->mustPass.insert(this->mustPass.end(),   this->exit     = "(-17;22)");
+
+    if (this->mustPass.size() != MUSTPASSNB)
+    {
+        std::cout << "MUSTPASSNB INCORRECT" << std::endl;
+        std::exit(1);
+    }
+
+    // TODO: dependencies
+    // (-4;5)_boutons
+    // (-5;10)_haut
+    // (-9;5)_bouton
+
+    parser.getLinks(*this);
 }
 
 void Laby::addLink(std::string from, std::string to, int weight, std::string comment, int death)
 {
     if (this->graph.count(to) == 0)
         this->graph[to] = std::vector<Link>();
-
     this->graph[from].push_back(Link(from, to, weight, comment, death));
 }
 
@@ -46,31 +63,4 @@ void Laby::printGraph()
         std::cout << std::endl;
     }
     std::cout << std::endl;
-}
-
-Laby::Laby(Parser &parser)
-{
-    this->mustPass =
-    {
-        "(-17;17)_bouton", "(-16;17)_bouton", "(-15;17)_bouton", "(-14;17)_bouton",
-        "(-17;18)_bouton", "(-16;18)_bouton", "(-15;18)_bouton", "(-14;18)_bouton",
-        "(-17;19)_bouton", "(-16;19)_bouton",                    "(-14;19)_bouton",
-        "(-17;20)_bouton", "(-16;20)_bouton", "(-15;20)_bouton", "(-14;20)_bouton"
-    };
-
-    this->mustPass.insert(this->mustPass.begin(), this->entrance = "(0;0)");
-    this->mustPass.insert(this->mustPass.end(),   this->exit     = "(-17;22)");
-
-    if (this->mustPass.size() != MUSTPASSNB)
-    {
-        std::cout << "MUSTPASSNB INCORRECT" << std::endl;
-        std::exit(1);
-    }
-
-    // TODO: dependencies
-    // (-4;5)_boutons
-    // (-5;10)_haut
-    // (-9;5)_bouton
-
-    parser.getLinks(*this);
 }

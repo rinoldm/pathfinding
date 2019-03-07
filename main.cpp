@@ -1,7 +1,7 @@
+#include "Parser.hh"
 #include "Laby.hh"
 #include "Dijkstra.hh"
 #include "Heldkarp.hh"
-#include "Parser.hh"
 
 Heldkarp heldkarp;
 

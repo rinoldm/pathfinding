@@ -1,15 +1,13 @@
 #ifndef HELDKARP_HH_INCLUDED
 #define HELDKARP_HH_INCLUDED
 
-#include <set>
-#include <array>
 #include "Laby.hh"
 
 class Heldkarp
 {
 public:
-    std::array<std::array<int, MUSTPASSNB>, 1 << (MUSTPASSNB)> visited;
-    std::array<std::array<int, MUSTPASSNB>, 1 << (MUSTPASSNB)> previous;
+    std::array<std::array<int, MUSTPASSNB>, 1 << MUSTPASSNB> visited;
+    std::array<std::array<int, MUSTPASSNB>, 1 << MUSTPASSNB> previous;
     int counter = 0;
     int percent = 0;
 

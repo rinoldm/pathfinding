@@ -1,13 +1,9 @@
 #ifndef PARSER_HH_INCLUDED
 #define PARSER_HH_INCLUDED
 
-#include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <algorithm>
-#include <map>
-#include <cstdlib>
 #include "Laby.hh"
 
 class Laby;
