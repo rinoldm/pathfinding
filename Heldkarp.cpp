@@ -1,6 +1,32 @@
 #include "Heldkarp.hh"
 
-int Heldkarp::findShortestTour(std::array<std::array<int, MUSTPASSNB>, MUSTPASSNB> dist, int end, int nodeBits)
+Heldkarp::Heldkarp()
+{
+    this->mustPass =
+    {
+        "(-17;17)_bouton", "(-16;17)_bouton", "(-15;17)_bouton", "(-14;17)_bouton",
+        "(-17;18)_bouton", "(-16;18)_bouton", "(-15;18)_bouton", "(-14;18)_bouton",
+        "(-17;19)_bouton", "(-16;19)_bouton",                    "(-14;19)_bouton",
+        "(-4;5)_boutons",  "(-5;10)_haut",  "(-9;5)_bouton",
+        "(-17;20)_bouton", "(-16;20)_bouton", "(-15;20)_bouton", "(-14;20)_bouton"
+    };
+
+    this->mustPass.insert(this->mustPass.begin(),   "(0;0)");
+    this->mustPass.insert(this->mustPass.end(),     "(-17;22)");
+
+    if (this->mustPass.size() != MUSTPASSNB)
+    {
+        std::cout << "MUSTPASSNB INCORRECT" << std::endl;
+        std::exit(1);
+    }
+
+    // TODO: dependencies
+    // (-4;5)_boutons
+    // (-5;10)_haut
+    // (-9;5)_bouton
+}
+
+int Heldkarp::findShortestTour(int end, int nodeBits)
 {
     if (this->visited[nodeBits][end])
         return (this->visited[nodeBits][end]);
@@ -8,15 +34,15 @@ int Heldkarp::findShortestTour(std::array<std::array<int, MUSTPASSNB>, MUSTPASSN
     if (!nodeBits)
         return (this->visited[nodeBits][end] = 0);
 
-    if (++this->counter > ((this->percent + 1) * ((1 << (MUSTPASSNB - 1)) * MUSTPASSNB - MUSTPASSNB)) / 100)
+    if (++this->counter > ((this->percent + 1) * ((1 << (this->mustPass.size() - 1)) * this->mustPass.size() - this->mustPass.size())) / 100)
         ++this->percent && std::cout << "\r" << "Held-Karp : " << this->percent << "%";
 
     int minFound = MAX_DISTANCE;
-    for (int i = 0; i < MUSTPASSNB; ++i)
+    for (unsigned int i = 0; i < this->mustPass.size(); ++i)
     {
         if (nodeBits & (1 << i))
         {
-            int newDist = dist[end][i] + this->findShortestTour(dist, i, nodeBits & ~(1 << i));
+            int newDist = this->dist[end][i] + this->findShortestTour(i, nodeBits & ~(1 << i));
             if (newDist < minFound)
             {
                 minFound = newDist;
@@ -26,4 +52,17 @@ int Heldkarp::findShortestTour(std::array<std::array<int, MUSTPASSNB>, MUSTPASSN
     }
 
     return (this->visited[nodeBits][end] = minFound);
+}
+
+void Heldkarp::printMatrix()
+{
+    std::cout << "Distance matrix:" << std::endl;
+    for (auto i = this->dist.begin(); i != this->dist.end(); ++i)
+    {
+        std::cout << this->mustPass[i - this->dist.begin()] << " ";
+        for (auto j = (*i).begin(); j != (*i).end(); ++j)
+            std::cout << *j << " ";
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
 }

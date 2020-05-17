@@ -12,14 +12,15 @@ private:
 public:
     std::map<std::string, std::map<std::string, int>> dist;
     std::map<std::string, std::map<std::string, std::string>> prev;
-    int counter = 0;
-    int percent = 0;
+    unsigned int counter = 0;
+    unsigned int percent = 0;
 
     int indexOf(std::vector<std::string> v, std::string s);
     std::string findClosestNode(std::map<std::string, int> dist, std::set<std::string> nodes);
     void printShortestPath(std::string start, std::string target);
     void findShortestPath(std::string start);
-    explicit Dijkstra(Laby &laby);
+
+    Dijkstra(Laby &laby);
 };
 
 #endif // DIJKSTRA_HH_INCLUDED

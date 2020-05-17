@@ -1,6 +1,17 @@
 #include "Parser.hh"
 
-Parser::Parser(std::string filename) : filename(filename) {}
+Parser::Parser(std::string filename) : filename(filename) {
+    this->linkData =
+    {
+        {"g", std::make_tuple(1, 0, "gauche")},
+        {"d", std::make_tuple(1, 0, "droite")},
+        {"b", std::make_tuple(1, 0, "bas")},
+        {"c", std::make_tuple(0, 0, "change zone")},
+        {"m", std::make_tuple(0, 1, "MORT")},
+        {"M", std::make_tuple(1, 1, "MORT")},
+        {"v", std::make_tuple(1, 0, "VORTEX")},
+    };
+}
 
 static inline std::string trim(std::string &s) {
     s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) {
@@ -14,47 +25,17 @@ static inline std::string trim(std::string &s) {
 
 int Parser::getLevelCost(std::string type)
 {
-    std::map<std::string, int> levelCosts =
-    {
-        {"g", 1},
-        {"d", 1},
-        {"b", 1},
-        {"c", 0},
-        {"m", 0},
-        {"M", 1},
-        {"v", 1},
-    };
-    return (levelCosts[type]);
+    return (std::get<0>(this->linkData[type]));
 }
 
 int Parser::getDeathCost(std::string type)
 {
-    std::map<std::string, int> deathCosts =
-    {
-        {"g", 0},
-        {"d", 0},
-        {"b", 0},
-        {"c", 0},
-        {"m", 1},
-        {"M", 1},
-        {"v", 0},
-    };
-    return (deathCosts[type]);
+    return (std::get<1>(this->linkData[type]));
 }
 
 std::string Parser::getComment(std::string type, std::string comment)
 {
-    std::map<std::string, std::string> defaultComments =
-    {
-        {"g", "gauche"},
-        {"d", "droite"},
-        {"b", "bas"},
-        {"c", "change zone"},
-        {"m", "MORT"},
-        {"M", "MORT"},
-        {"v", "VORTEX"},
-    };
-   return (comment == "" ? defaultComments[type] : comment);
+   return (comment == "" ? std::get<2>(this->linkData[type]) : comment);
 }
 
 void Parser::checkLink(int x1, int y1, std::string zone1, int x2, int y2, std::string zone2, std::string type)
@@ -88,26 +69,17 @@ void Parser::getLinks(Laby &laby)
 
         int x1, x2, y1, y2;
         std::string zone1, zone2, type, comment;
-
         std::istringstream linestream(line);
         std::string token;
 
-        std::getline(linestream, token, '|');
-        x1 = std::stoi(token);
-        std::getline(linestream, token, '|');
-        y1 = std::stoi(token);
-        std::getline(linestream, token, '|');
-        zone1 = trim(token);
-        std::getline(linestream, token, '|');
-        x2 = std::stoi(token);
-        std::getline(linestream, token, '|');
-        y2 = std::stoi(token);
-        std::getline(linestream, token, '|');
-        zone2 = trim(token);
-        std::getline(linestream, token, '|');
-        type = trim(token);
-        std::getline(linestream, token, '|');
-        comment = trim(token);
+        std::getline(linestream, token, '|');   x1 = std::stoi(token);
+        std::getline(linestream, token, '|');   y1 = std::stoi(token);
+        std::getline(linestream, token, '|');   zone1 = trim(token);
+        std::getline(linestream, token, '|');   x2 = std::stoi(token);
+        std::getline(linestream, token, '|');   y2 = std::stoi(token);
+        std::getline(linestream, token, '|');   zone2 = trim(token);
+        std::getline(linestream, token, '|');   type = trim(token);
+        std::getline(linestream, token, '|');   comment = trim(token);
 
         this->checkLink(x1, y1, zone1, x2, y2, zone2, type);
 
