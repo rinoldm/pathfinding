@@ -19,6 +19,7 @@ public:
 
     int getLevelCost(std::string type);
     int getDeathCost(std::string type);
+    uint8_t getCondition(std::string cond);
     std::string getComment(std::string type, std::string comment);
     void getMustPass(Laby &laby);
     void getLinks(Laby &laby);

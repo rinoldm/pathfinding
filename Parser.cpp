@@ -33,6 +33,26 @@ int Parser::getDeathCost(std::string type)
     return (std::get<1>(this->linkData[type]));
 }
 
+uint8_t Parser::getCondition(std::string cond)
+{
+    uint8_t condition = 0b111111;
+
+    if (cond == "A") {
+        condition &= ~(1 << 0);
+    }
+    else if (cond == "B") {
+        condition &= ~(1 << 2);
+    }
+    else if (cond == "C") {
+        condition &= ~(1 << 4);
+    }
+    else if (cond != "") {
+        std::string message("Condition inconnue");
+        throw message;
+    }
+    return condition;
+}
+
 std::string Parser::getComment(std::string type, std::string comment)
 {
    return (comment == "" ? std::get<2>(this->linkData[type]) : comment);
@@ -101,6 +121,7 @@ void Parser::getLinks(Laby &laby)
 
         std::string from = std::string("(") + std::to_string(x1) + std::string(";") + std::to_string(y1) + std::string(")") + (zone1 != "" ? "_" + zone1 : "");
         std::string to   = std::string("(") + std::to_string(x2) + std::string(";") + std::to_string(y2) + std::string(")") + (zone2 != "" ? "_" + zone2 : "");
-        laby.addLink(from, to, this->getLevelCost(type), 0b111111, this->getComment(type, comment), this->getDeathCost(type));
+
+        laby.addLink(from, to, this->getLevelCost(type), this->getCondition(cond), this->getComment(type, comment), this->getDeathCost(type));
     }
 }
