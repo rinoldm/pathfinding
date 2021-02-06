@@ -7,7 +7,7 @@ Heldkarp heldkarp;
 
 int main()
 {
-    Parser parser("links.txt");
+    Parser parser("../links.txt");
     Laby laby(parser);
     Dijkstra dijkstra(laby);
 

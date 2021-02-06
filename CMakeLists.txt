@@ -1,6 +1,6 @@
 PROJECT(pathfinding)
 
-cmake_minimum_required(VERSION 2.8.9)
+cmake_minimum_required(VERSION 3.19.4)
 
 set(CMAKE_CXX_STANDARD 11)
 
