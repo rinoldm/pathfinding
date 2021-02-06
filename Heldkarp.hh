@@ -6,7 +6,7 @@
 #include <iostream>
 #include "Laby.hh"
 
-#define MUSTPASSNB 20
+#define MUSTPASSNB 17
 #define MAX_DISTANCE 666666
 
 class Heldkarp

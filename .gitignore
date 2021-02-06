@@ -6,3 +6,4 @@ bin/
 *.layout
 .vscode
 build
+cmake-build-debug

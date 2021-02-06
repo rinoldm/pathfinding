@@ -1,9 +1,7 @@
 #include "Heldkarp.hh"
 
-Heldkarp::Heldkarp(Laby &laby)
+Heldkarp::Heldkarp(Laby &laby) : mustPass(laby.mustPass)
 {
-    this->mustPass = laby.mustPass;
-
     if (this->mustPass.size() != MUSTPASSNB)
     {
         std::cout << "MUSTPASSNB INCORRECT" << std::endl;

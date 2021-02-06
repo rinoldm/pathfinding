@@ -5,6 +5,7 @@ Link::Link(std::string from, std::string to, int weight, std::string comment, in
 Laby::Laby(Parser &parser)
 {
     parser.getLinks(*this);
+    parser.getMustPass(*this);
 }
 
 void Laby::addLink(std::string from, std::string to, int weight, std::string comment, int death)
@@ -23,7 +24,7 @@ Link Laby::findLink(std::string from, std::string to)
 
 void Laby::addMustPass(std::string mustpass)
 {
-     this->mustPass.push_back(mustpass);
+    this->mustPass.push_back(mustpass);
 }
 
 void Laby::printGraph()

@@ -55,19 +55,16 @@ void Parser::checkLink(int x1, int y1, std::string zone1, int x2, int y2, std::s
 
 void Parser::getMustPass(Laby &laby)
 {
-    std::ifstream filestream(this->linksfile);
+    std::ifstream filestream(this->mustpassfile);
     if(filestream.fail()){
-        std::string message("I/O Error");
+        std::string message("I/O Error getMustPass");
         std::cerr << message << std::endl;
         throw message;
     }
     std::string line;
     while (std::getline(filestream, line))
     {
-        if ((trim(line)).size() == 0)
-            continue;
-
-        laby.addMustPass(line);
+        laby.addMustPass(trim(line));
     }
 }
 
@@ -75,7 +72,7 @@ void Parser::getLinks(Laby &laby)
 {
     std::ifstream filestream(this->linksfile);
     if(filestream.fail()){
-        std::string message("I/O Error");
+        std::string message("I/O Error getLinks");
         std::cerr << message << std::endl;
         throw message;
     }
