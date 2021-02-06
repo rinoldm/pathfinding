@@ -1,6 +1,6 @@
 #include "Laby.hh"
 
-Link::Link(std::string from, std::string to, int weight, std::string comment, int death) : from(from), to(to), weight(weight), comment(comment), death(death) {}
+Link::Link(std::string from, std::string to, int weight, uint8_t condition, std::string comment, int death) : from(from), to(to), weight(weight), condition(condition), comment(comment), death(death) {}
 
 Laby::Laby(Parser &parser)
 {
@@ -8,11 +8,11 @@ Laby::Laby(Parser &parser)
     parser.getMustPass(*this);
 }
 
-void Laby::addLink(std::string from, std::string to, int weight, std::string comment, int death)
+void Laby::addLink(std::string from, std::string to, int weight, uint8_t condition, std::string comment, int death)
 {
     if (this->graph.count(to) == 0)
         this->graph[to] = std::vector<Link>();
-    this->graph[from].push_back(Link(from, to, weight, comment, death));
+    this->graph[from].push_back(Link(from, to, weight, condition, comment, death));
 }
 
 Link Laby::findLink(std::string from, std::string to)
@@ -20,6 +20,8 @@ Link Laby::findLink(std::string from, std::string to)
     for (auto i = this->graph[from].begin(); i != this->graph[from].end(); ++i)
         if ((*i).to == to)
             return (*i);
+    std::string message("Unreachable");
+    throw message;
 }
 
 void Laby::addMustPass(std::string mustpass)

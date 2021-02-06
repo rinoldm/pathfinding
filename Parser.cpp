@@ -83,13 +83,14 @@ void Parser::getLinks(Laby &laby)
             continue;
 
         int x1, x2, y1, y2;
-        std::string zone1, zone2, type, comment;
+        std::string zone1, cond, zone2, type, comment;
         std::istringstream linestream(line);
         std::string token;
 
         std::getline(linestream, token, '|');   x1 = std::stoi(token);
         std::getline(linestream, token, '|');   y1 = std::stoi(token);
         std::getline(linestream, token, '|');   zone1 = trim(token);
+        std::getline(linestream, token, '|');   cond = trim(token);
         std::getline(linestream, token, '|');   x2 = std::stoi(token);
         std::getline(linestream, token, '|');   y2 = std::stoi(token);
         std::getline(linestream, token, '|');   zone2 = trim(token);
@@ -100,6 +101,6 @@ void Parser::getLinks(Laby &laby)
 
         std::string from = std::string("(") + std::to_string(x1) + std::string(";") + std::to_string(y1) + std::string(")") + (zone1 != "" ? "_" + zone1 : "");
         std::string to   = std::string("(") + std::to_string(x2) + std::string(";") + std::to_string(y2) + std::string(")") + (zone2 != "" ? "_" + zone2 : "");
-        laby.addLink(from, to, this->getLevelCost(type), this->getComment(type, comment), this->getDeathCost(type));
+        laby.addLink(from, to, this->getLevelCost(type), 0b111111, this->getComment(type, comment), this->getDeathCost(type));
     }
 }
