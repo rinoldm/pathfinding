@@ -1,6 +1,6 @@
 #include "Parser.hh"
 
-Parser::Parser(std::string filename) : filename(filename) {
+Parser::Parser(std::string linksfile, std::string mustpassfile) : linksfile(linksfile), mustpassfile(mustpassfile) {
     this->linkData =
     {
         {"g", std::make_tuple(1, 0, "gauche")},
@@ -53,9 +53,27 @@ void Parser::checkLink(int x1, int y1, std::string zone1, int x2, int y2, std::s
         }
 }
 
+void Parser::getMustPass(Laby &laby)
+{
+    std::ifstream filestream(this->linksfile);
+    if(filestream.fail()){
+        std::string message("I/O Error");
+        std::cerr << message << std::endl;
+        throw message;
+    }
+    std::string line;
+    while (std::getline(filestream, line))
+    {
+        if ((trim(line)).size() == 0)
+            continue;
+
+        laby.addMustPass(line);
+    }
+}
+
 void Parser::getLinks(Laby &laby)
 {
-    std::ifstream filestream(this->filename);
+    std::ifstream filestream(this->linksfile);
     if(filestream.fail()){
         std::string message("I/O Error");
         std::cerr << message << std::endl;

@@ -3,6 +3,7 @@
 
 #include <set>
 #include "Laby.hh"
+#include "Heldkarp.hh"
 
 class Dijkstra
 {
@@ -17,7 +18,7 @@ public:
 
     int indexOf(std::vector<std::string> v, std::string s);
     std::string findClosestNode(std::map<std::string, int> dist, std::set<std::string> nodes);
-    void printShortestPath(std::string start, std::string target);
+    void printShortestPath(Heldkarp &heldkarp, std::string start, std::string target);
     void findShortestPath(std::string start);
 
     Dijkstra(Laby &laby);

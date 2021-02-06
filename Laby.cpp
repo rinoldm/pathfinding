@@ -21,6 +21,11 @@ Link Laby::findLink(std::string from, std::string to)
             return (*i);
 }
 
+void Laby::addMustPass(std::string mustpass)
+{
+     this->mustPass.push_back(mustpass);
+}
+
 void Laby::printGraph()
 {
     std::cout << "List of nodes and links:" << std::endl;

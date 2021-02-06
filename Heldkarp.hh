@@ -4,6 +4,7 @@
 #include <vector>
 #include <array>
 #include <iostream>
+#include "Laby.hh"
 
 #define MUSTPASSNB 20
 #define MAX_DISTANCE 666666
@@ -21,7 +22,7 @@ public:
     int findShortestTour(int end, int nodeBits);
     void printMatrix();
 
-    Heldkarp();
+    Heldkarp(Laby &laby);
 };
 
 #endif // HELDKARP_HH_INCLUDED

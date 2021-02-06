@@ -1,18 +1,8 @@
 #include "Heldkarp.hh"
 
-Heldkarp::Heldkarp()
+Heldkarp::Heldkarp(Laby &laby)
 {
-    this->mustPass =
-    {
-        "(-17;17)_bouton", "(-16;17)_bouton", "(-15;17)_bouton", "(-14;17)_bouton",
-        "(-17;18)_bouton", "(-16;18)_bouton", "(-15;18)_bouton", "(-14;18)_bouton",
-        "(-17;19)_bouton", "(-16;19)_bouton",                    "(-14;19)_bouton",
-        "(-4;5)_boutons",  "(-5;10)_haut",  "(-9;5)_bouton",
-        "(-17;20)_bouton", "(-16;20)_bouton", "(-15;20)_bouton", "(-14;20)_bouton"
-    };
-
-    this->mustPass.insert(this->mustPass.begin(),   "(0;0)");
-    this->mustPass.insert(this->mustPass.end(),     "(-17;22)");
+    this->mustPass = laby.mustPass;
 
     if (this->mustPass.size() != MUSTPASSNB)
     {

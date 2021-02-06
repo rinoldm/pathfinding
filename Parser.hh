@@ -13,16 +13,18 @@ class Laby;
 class Parser
 {
 public:
-    std::string filename;
+    std::string linksfile;
+    std::string mustpassfile;
     std::map<std::string, std::tuple<int, int, std::string>> linkData;
 
     int getLevelCost(std::string type);
     int getDeathCost(std::string type);
     std::string getComment(std::string type, std::string comment);
+    void getMustPass(Laby &laby);
     void getLinks(Laby &laby);
     void checkLink(int x1, int y1, std::string zone1, int x2, int y2, std::string zone2, std::string type);
 
-    Parser(std::string filename);
+    Parser(std::string linksfile, std::string mustpassfile);
 };
 
 #endif // PARSER_HH_INCLUDED

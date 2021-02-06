@@ -1,8 +1,5 @@
 #include "Dijkstra.hh"
 
-#include "Heldkarp.hh"
-extern Heldkarp heldkarp;
-
 Dijkstra::Dijkstra(Laby &laby): laby(laby) {}
 
 int Dijkstra::indexOf(std::vector<std::string> v, std::string s)
@@ -27,7 +24,7 @@ std::string Dijkstra::findClosestNode(std::map<std::string, int> distance, std::
     return (minNodeFound);
 }
 
-void Dijkstra::printShortestPath(std::string start, std::string target)
+void Dijkstra::printShortestPath(Heldkarp &heldkarp, std::string start, std::string target)
 {
     std::cout << "Distance " << start << " - " << target << " : " << heldkarp.dist[this->indexOf(heldkarp.mustPass, start)][this->indexOf(heldkarp.mustPass, target)] << std::endl;
 
@@ -52,8 +49,8 @@ void Dijkstra::findShortestPath(std::string start)
     }
     this->dist[start][start] = 0;
 
-    if (++this->counter > ((this->percent * heldkarp.mustPass.size()) / 100))
-        ++this->percent && std::cout << "\r" << "Dijkstra : " << this->percent << "/" << heldkarp.mustPass.size();
+    if (++this->counter > ((this->percent * laby.mustPass.size()) / 100))
+        ++this->percent && std::cout << "\r" << "Dijkstra : " << this->percent << "/" << laby.mustPass.size();
 
     while (unvisitedNodes.size() > 0)
     {
