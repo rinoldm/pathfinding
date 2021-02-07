@@ -15,7 +15,7 @@ public:
     unsigned int counter = 0;
     unsigned int percent = 0;
 
-    int indexOf(std::vector<Node> v, Node n);
+    size_t indexOf(std::vector<Node> v, const Node & n);
     std::optional<Node> findClosestNode(const std::map<Node, Cost> & dist, const std::set<Node>& nodes);
     void printShortestPath(Heldkarp &heldkarp, Node start, Node target);
     void findShortestPath(Node start);
