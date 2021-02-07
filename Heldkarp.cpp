@@ -1,6 +1,6 @@
 #include "Heldkarp.hh"
 
-Heldkarp::Heldkarp(Laby &laby) : mustPass(laby.mustPass)
+Heldkarp::Heldkarp(const Laby &laby) : laby(laby), mustPass(laby.getMustPass())
 {
     if (this->mustPass.size() != MUSTPASSNB)
     {
@@ -14,23 +14,25 @@ Heldkarp::Heldkarp(Laby &laby) : mustPass(laby.mustPass)
     // (-9;5)_bouton
 }
 
-int Heldkarp::findShortestTour(int end, int nodeBits)
+Cost Heldkarp::findShortestTour(int end, int nodeBits)
 {
-    if (this->visited[nodeBits][end])
+    if (this->visited[nodeBits][end] != Cost()) {
         return (this->visited[nodeBits][end]);
+    }
 
-    if (!nodeBits)
-        return (this->visited[nodeBits][end] = 0);
+    if (!nodeBits) {
+        return (this->visited[nodeBits][end] = Cost());
+    }
 
     if (++this->counter > ((this->percent + 1) * ((1 << (this->mustPass.size() - 1)) * this->mustPass.size() - this->mustPass.size())) / 100)
         ++this->percent && std::cout << "\r" << "Held-Karp : " << this->percent << "%";
 
-    int minFound = MAX_DISTANCE;
+    Cost minFound = Cost::MAX;
     for (unsigned int i = 0; i < this->mustPass.size(); ++i)
     {
         if (nodeBits & (1 << i))
         {
-            int newDist = this->dist[end][i] + this->findShortestTour(i, nodeBits & ~(1 << i));
+            Cost newDist = this->dist[end][i] + this->findShortestTour(i, nodeBits & ~(1 << i));
             if (newDist < minFound)
             {
                 minFound = newDist;
@@ -47,9 +49,10 @@ void Heldkarp::printMatrix()
     std::cout << "Distance matrix:" << std::endl;
     for (auto i = this->dist.begin(); i != this->dist.end(); ++i)
     {
-        std::cout << this->mustPass[i - this->dist.begin()] << " ";
-        for (auto j = (*i).begin(); j != (*i).end(); ++j)
-            std::cout << *j << " ";
+        std::cout << this->laby.formatNode(this->mustPass[i - this->dist.begin()]) << " ";
+        for (auto & j : *i) {
+            std::cout << j.getDistance() << " ";
+        }
         std::cout << std::endl;
     }
     std::cout << std::endl;

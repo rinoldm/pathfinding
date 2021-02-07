@@ -1,75 +1,95 @@
 #include "Dijkstra.hh"
 
-Dijkstra::Dijkstra(Laby &laby): laby(laby) {}
+Dijkstra::Dijkstra(const Laby &laby): laby(laby) {}
 
-int Dijkstra::indexOf(std::vector<std::string> v, std::string s)
+int Dijkstra::indexOf(std::vector<Node> v, Node s)
 {
     return (std::find(v.begin(), v.end(), s) - v.begin());
 }
 
-std::string Dijkstra::findClosestNode(std::map<std::string, int> distance, std::set<std::string> nodes)
+std::optional<Node> Dijkstra::findClosestNode(const std::map<Node, Cost> & distance, const std::set<Node>& nodes)
 {
-    int minDistanceFound = MAX_DISTANCE;
-    std::string minNodeFound = "UNDEFINED";
+    Cost minDistanceFound = Cost::MAX;
+    std::optional<Node> minNodeFound;
 
-    for (auto i = nodes.begin(); i != nodes.end(); ++i)
+    for (const auto n : nodes)
     {
-        if (distance[*i] < minDistanceFound)
+        if (distance.at(n) < minDistanceFound)
         {
-            minDistanceFound = distance[*i];
-            minNodeFound = *i;
+            minDistanceFound = distance.at(n);
+            minNodeFound = n;
         }
     }
 
-    return (minNodeFound);
+    return minNodeFound;
 }
 
-void Dijkstra::printShortestPath(Heldkarp &heldkarp, std::string start, std::string target)
+void Dijkstra::printShortestPath(Heldkarp &heldkarp, Node start, Node target)
 {
-    std::cout << "Distance " << start << " - " << target << " : " << heldkarp.dist[this->indexOf(heldkarp.mustPass, start)][this->indexOf(heldkarp.mustPass, target)] << std::endl;
+    Cost cost = heldkarp.dist[this->indexOf(heldkarp.mustPass, start)][this->indexOf(heldkarp.mustPass, target)];
+
+    std::cout
+        << "Distance "
+        << this->laby.formatNode(start)
+        << " - "
+        << this->laby.formatNode(target)
+        << " : "
+        << cost.getDistance()
+        << std::endl;
 
     std::vector<std::string> path;
-    for (; target != start; target = this->prev[start][target])
-        path.insert(path.begin(), " " + laby.findLink(this->prev[start][target], target).comment + " -> " + target);
+    for (;;) {
+        std::optional<Node> prev = this->prev[start][target];
+        if (!prev.has_value()) {
+            break;
+        }
+        ConditionalLink link = laby.findLink(*prev, target);
+        path.insert(path.begin(), " " + laby.getLinkComment(link) + " -> " + laby.formatNode(target));
+        target = *prev;
+    }
 
-    for (auto i = path.begin(); i != path.end(); ++i)
+    for (auto i = path.begin(); i != path.end(); ++i) {
         std::cout << *i << std::endl;
+    }
     std::cout << std::endl;
 }
 
-void Dijkstra::findShortestPath(std::string start)
+void Dijkstra::findShortestPath(Node start)
 {
-    std::set<std::string> unvisitedNodes;
+    std::set<Node> unvisitedNodes;
 
-    for (auto i = laby.graph.begin(); i != laby.graph.end(); ++i)
+    for (const auto & [from, links] : laby.getGraph())
     {
-        this->dist[start][(*i).first] = MAX_DISTANCE;
-        this->prev[start][(*i).first] = "UNDEFINED";
-        unvisitedNodes.insert((*i).first);
+        this->dist[start][from] = Cost::MAX;
+        this->prev[start][from] = std::nullopt;
+        unvisitedNodes.insert(from);
     }
-    this->dist[start][start] = 0;
+    this->dist[start][start] = Cost();
 
-    if (++this->counter > ((this->percent * laby.mustPass.size()) / 100))
-        ++this->percent && std::cout << "\r" << "Dijkstra : " << this->percent << "/" << laby.mustPass.size();
+    size_t mustPassCount = laby.getMustPass().size();
+
+    if (++this->counter > ((this->percent * mustPassCount) / 100))
+        ++this->percent && std::cout << "\r" << "Dijkstra : " << this->percent << "/" << mustPassCount;
 
     while (unvisitedNodes.size() > 0)
     {
-        std::string candidateNode = this->findClosestNode(this->dist[start], unvisitedNodes);
-        if (candidateNode == "UNDEFINED")
+        std::optional<Node> candidateNode = this->findClosestNode(this->dist[start], unvisitedNodes);
+        if (!candidateNode.has_value()) {
             break;
-        unvisitedNodes.erase(candidateNode);
+        }
+        unvisitedNodes.erase(*candidateNode);
 
-        for (auto i = laby.graph.begin(); i != laby.graph.end(); ++i)
+        for (const auto & [from, outLinks] : laby.getGraph())
         {
-            for (auto j = (*i).second.begin(); j != (*i).second.end(); ++j)
+            for (const auto & link : outLinks)
             {
-                if (candidateNode == (*j).from)
+                if (candidateNode == link.getFrom())
                 {
-                    int alt = this->dist[start][candidateNode] + (*j).weight;
-                    if (alt < this->dist[start][(*j).to])
+                    Cost alt = this->dist[start][*candidateNode] + link.getWeight();
+                    if (alt < this->dist[start][link.getTo()])
                     {
-                        this->dist[start][(*j).to] = alt;
-                        this->prev[start][(*j).to] = candidateNode;
+                        this->dist[start][link.getTo()] = alt;
+                        this->prev[start][link.getTo()] = candidateNode;
                     }
                 }
             }

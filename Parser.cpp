@@ -23,12 +23,12 @@ static inline std::string trim(std::string &s) {
     return s;
 }
 
-int Parser::getLevelCost(std::string type)
+uint16_t Parser::getLevelCost(std::string type)
 {
     return (std::get<0>(this->linkData[type]));
 }
 
-int Parser::getDeathCost(std::string type)
+uint16_t Parser::getDeathCost(std::string type)
 {
     return (std::get<1>(this->linkData[type]));
 }
@@ -84,7 +84,23 @@ void Parser::getMustPass(Laby &laby)
     std::string line;
     while (std::getline(filestream, line))
     {
-        laby.addMustPass(trim(line));
+        if ((trim(line)).empty()) {
+            continue;
+        }
+
+        int x, y;
+        std::string zone;
+        std::istringstream linestream(line);
+        std::string token;
+
+        std::getline(linestream, token, '|');   x = std::stoi(token);
+        std::getline(linestream, token, '|');   y = std::stoi(token);
+        std::getline(linestream, token, '|');   zone = trim(token);
+
+        Node node = laby.makeNode(x, y, zone);
+
+
+        laby.addMustPass(node);
     }
 }
 
@@ -99,8 +115,9 @@ void Parser::getLinks(Laby &laby)
     std::string line;
     while (std::getline(filestream, line))
     {
-        if ((trim(line)).size() == 0)
+        if ((trim(line)).empty()) {
             continue;
+        }
 
         int x1, x2, y1, y2;
         std::string zone1, cond, zone2, type, comment;
@@ -119,9 +136,17 @@ void Parser::getLinks(Laby &laby)
 
         this->checkLink(x1, y1, zone1, x2, y2, zone2, type);
 
-        std::string from = std::string("(") + std::to_string(x1) + std::string(";") + std::to_string(y1) + std::string(")") + (zone1 != "" ? "_" + zone1 : "");
-        std::string to   = std::string("(") + std::to_string(x2) + std::string(";") + std::to_string(y2) + std::string(")") + (zone2 != "" ? "_" + zone2 : "");
+        Node from = laby.makeNode(x1, y1, zone1);
+        Node to = laby.makeNode(x2, y2, zone2);
+        Cost weight = Cost(this->getLevelCost(type), this->getDeathCost(type));
 
-        laby.addLink(from, to, this->getLevelCost(type), this->getCondition(cond), this->getComment(type, comment), this->getDeathCost(type));
+        laby.addLink(from, to, weight, this->getCondition(cond), this->getComment(type, comment));
     }
+}
+
+Laby Parser::parse() {
+    Laby laby;
+    this->getLinks(laby);
+    this->getMustPass(laby);
+    return laby;
 }

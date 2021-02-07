@@ -1,5 +1,4 @@
-#ifndef DIJKSTRA_HH_INCLUDED
-#define DIJKSTRA_HH_INCLUDED
+#pragma once
 
 #include <set>
 #include "Laby.hh"
@@ -8,20 +7,18 @@
 class Dijkstra
 {
 private:
-    Laby &laby;
+    const Laby &laby;
 
 public:
-    std::map<std::string, std::map<std::string, int>> dist;
-    std::map<std::string, std::map<std::string, std::string>> prev;
+    std::map<Node, std::map<Node, Cost>> dist;
+    std::map<Node, std::map<Node, std::optional<Node>>> prev;
     unsigned int counter = 0;
     unsigned int percent = 0;
 
-    int indexOf(std::vector<std::string> v, std::string s);
-    std::string findClosestNode(std::map<std::string, int> dist, std::set<std::string> nodes);
-    void printShortestPath(Heldkarp &heldkarp, std::string start, std::string target);
-    void findShortestPath(std::string start);
+    int indexOf(std::vector<Node> v, Node n);
+    std::optional<Node> findClosestNode(const std::map<Node, Cost> & dist, const std::set<Node>& nodes);
+    void printShortestPath(Heldkarp &heldkarp, Node start, Node target);
+    void findShortestPath(Node start);
 
-    Dijkstra(Laby &laby);
+    Dijkstra(const Laby &laby);
 };
-
-#endif // DIJKSTRA_HH_INCLUDED

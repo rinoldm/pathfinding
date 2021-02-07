@@ -1,5 +1,4 @@
-#ifndef HELDKARP_HH_INCLUDED
-#define HELDKARP_HH_INCLUDED
+#pragma once
 
 #include <vector>
 #include <array>
@@ -7,22 +6,21 @@
 #include "Laby.hh"
 
 #define MUSTPASSNB 17
-#define MAX_DISTANCE 666666
 
 class Heldkarp
 {
+private:
+    const Laby& laby;
 public:
-    std::vector<std::string> mustPass;
-    std::array<std::array<int, MUSTPASSNB>, MUSTPASSNB> dist;
-    std::array<std::array<int, MUSTPASSNB>, 1 << MUSTPASSNB> visited;
-    std::array<std::array<int, MUSTPASSNB>, 1 << MUSTPASSNB> previous;
+    std::vector<Node> mustPass;
+    std::array<std::array<Cost, MUSTPASSNB>, MUSTPASSNB> dist;
+    std::array<std::array<Cost, MUSTPASSNB>, 1 << MUSTPASSNB> visited;
+    std::array<std::array<size_t, MUSTPASSNB>, 1 << MUSTPASSNB> previous;
     unsigned int counter = 0;
     unsigned int percent = 0;
 
-    int findShortestTour(int end, int nodeBits);
+    Cost findShortestTour(int end, int nodeBits);
     void printMatrix();
 
-    Heldkarp(Laby &laby);
+    Heldkarp(const Laby &laby);
 };
-
-#endif // HELDKARP_HH_INCLUDED
