@@ -31,7 +31,12 @@ public:
     int8_t getY() const;
     uint8_t getZone() const;
 
-    auto operator<=>(const Node&) const = default;
+    bool operator==(const Node& rhs) const;
+    bool operator!=(const Node& rhs) const;
+    bool operator<(const Node& rhs) const;
+    bool operator>(const Node& rhs) const;
+    bool operator<=(const Node& rhs) const;
+    bool operator>=(const Node& rhs) const;
 };
 
 /**
@@ -89,7 +94,12 @@ public:
     uint16_t getDistance() const;
     uint16_t getDeath() const;
 
-    auto operator<=>(const Cost&) const = default;
+    bool operator==(const Cost& rhs) const;
+    bool operator!=(const Cost& rhs) const;
+    bool operator<(const Cost& rhs) const;
+    bool operator>(const Cost& rhs) const;
+    bool operator<=(const Cost& rhs) const;
+    bool operator>=(const Cost& rhs) const;
     Cost operator+(const Cost& rhs) const;
 
     static const Cost MAX;

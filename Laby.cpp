@@ -15,6 +15,36 @@ uint8_t Node::getZone() const {
     return this->zone;
 }
 
+bool Node::operator==(const Node & rhs) const {
+    return this->x == rhs.x && this->y == rhs.y && this->zone == rhs.zone;
+}
+
+bool Node::operator!=(const Node &rhs) const {
+    return !(*this == rhs);
+}
+
+bool Node::operator<(const Node &rhs) const {
+    if (this->x != rhs.x) {
+        return this->x < rhs.x;
+    } else if (this->y != rhs.y) {
+        return this->y < rhs.y;
+    } else {
+        return this->zone < rhs.zone;
+    }
+}
+
+bool Node::operator>(const Node &rhs) const {
+    return rhs < *this;
+}
+
+bool Node::operator<=(const Node &rhs) const {
+    return !(*this > rhs);
+}
+
+bool Node::operator>=(const Node &rhs) const {
+    return !(*this < rhs);
+}
+
 StatefulNode::StatefulNode(int8_t x, int8_t y, uint8_t zone, uint8_t state) : x(x), y(y), zone(zone), state(state) {}
 
 int8_t StatefulNode::getX() const {
@@ -52,6 +82,34 @@ Cost Cost::operator+(const Cost & rhs) const {
 }
 
 const Cost Cost::MAX = Cost(UINT16_MAX, UINT16_MAX);
+
+bool Cost::operator==(const Cost &rhs) const {
+    return this->distance == rhs.distance && this->death == rhs.death;
+}
+
+bool Cost::operator!=(const Cost &rhs) const {
+    return !(*this == rhs);
+}
+
+bool Cost::operator<(const Cost &rhs) const {
+    if (this->distance != rhs.distance) {
+        return this->distance < rhs.distance;
+    } else {
+        return this->death < rhs.death;
+    }
+}
+
+bool Cost::operator>(const Cost &rhs) const {
+    return rhs < *this;
+}
+
+bool Cost::operator<=(const Cost &rhs) const {
+    return !(*this > rhs);
+}
+
+bool Cost::operator>=(const Cost &rhs) const {
+    return !(*this < rhs);
+}
 
 Link::Link(Node from, Node to, Cost weight, uint16_t comment): from(from), to(to), weight(weight), comment(comment) {}
 

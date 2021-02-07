@@ -2,9 +2,15 @@
 
 Dijkstra::Dijkstra(const Laby &laby): laby(laby) {}
 
-int Dijkstra::indexOf(std::vector<Node> v, Node s)
+size_t Dijkstra::indexOf(std::vector<Node> v, const Node & n)
 {
-    return (std::find(v.begin(), v.end(), s) - v.begin());
+    for (size_t i = 0; i < v.size(); i++) {
+        if (v[i] == n) {
+            return i;
+        }
+    }
+    std::string message("NotFound");
+    throw message;
 }
 
 std::optional<Node> Dijkstra::findClosestNode(const std::map<Node, Cost> & distance, const std::set<Node>& nodes)
