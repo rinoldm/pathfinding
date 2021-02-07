@@ -1,5 +1,4 @@
-#ifndef PARSER_HH_INCLUDED
-#define PARSER_HH_INCLUDED
+#pragma once
 
 #include <fstream>
 #include <sstream>
@@ -15,17 +14,18 @@ class Parser
 public:
     std::string linksfile;
     std::string mustpassfile;
-    std::map<std::string, std::tuple<int, int, std::string>> linkData;
+    std::map<std::string, std::tuple<uint16_t, uint16_t, std::string>> linkData;
 
-    int getLevelCost(std::string type);
-    int getDeathCost(std::string type);
+    uint16_t getLevelCost(std::string type);
+    uint16_t getDeathCost(std::string type);
     uint8_t getCondition(std::string cond);
     std::string getComment(std::string type, std::string comment);
-    void getMustPass(Laby &laby);
-    void getLinks(Laby &laby);
     void checkLink(int x1, int y1, std::string zone1, int x2, int y2, std::string zone2, std::string type);
 
-    Parser(std::string linksfile, std::string mustpassfile);
-};
+    Laby parse();
 
-#endif // PARSER_HH_INCLUDED
+    Parser(std::string linksfile, std::string mustpassfile);
+private:
+    void getMustPass(Laby &laby);
+    void getLinks(Laby &laby);
+};
