@@ -67,7 +67,6 @@ std::pair<Cost, std::deque<StatefulNode>> Heldkarp::findShortestTour()
     size_t curStNodeId = exitId;
     size_t curVisitedSet = allVisitedMaskExceptExit;
     while(curStNodeId != 0) {
-        size_t curNodeId = curStNodeId >> 3;
         size_t stNodeId = this->getPrevious(curVisitedSet, curStNodeId);
         size_t nodeId = stNodeId >> 3;
         uint8_t state = stNodeId & 0b111;

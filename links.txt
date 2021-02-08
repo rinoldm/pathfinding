@@ -287,7 +287,7 @@
  -5|  5|main     | | -5|  6|         |b|
  -5|  5|tp       | | -6|  5|droite   |g|
  -5|  5|tp       | | -5|  5|main     |m|
- -5|  5|tp       | | -4|  5|boutons  |d|BOUTON D'ACCES SALLE VERTE 4
+ -5|  5|tp       | | -4|  5|boutons  |d|droite (BOUTON D'ACCES SALLE VERTE 4)
  -5|  6|         | | -5|  7|         |b|
  -5|  7|         | | -4|  7|         |d|
  -5|  7|         | | -5|  8|         |b|
@@ -295,7 +295,7 @@
  -5|  8|         | | -4|  8|         |d|
  -5|  8|         | | -5|  9|         |b|
  -5|  9|         | | -6|  9|         |g|
- -5|  9|         | | -5| 10|haut     |b|BOUTON D'ACCES SALLE VERTE 9
+ -5|  9|         | | -5| 10|haut     |b|bas (BOUTON D'ACCES SALLE VERTE 9)
  -5| 10|haut     | | -5| 10|gauche   |c|change zone
  -5| 10|gauche   | | -6| 10|         |g|
  -5| 10|vortex   | | -4| 10|         |d|
@@ -428,8 +428,8 @@
  -8|  0|         | | -8|  1|vortex   |b|bas droite
  -8|  1|vortex   | | -8|  1|main     |c|change zone
  -8|  1|main     | | -8|  1|droite   |c|change zone
- -8|  1|main     | | -8|  2|gauche   |b|
- -8|  1|droite   | | -8|  2|main     |b|
+ -8|  1|main     | | -8|  2|gauche   |b|bas gauche
+ -8|  1|droite   | | -8|  2|main     |b|bas droite
  -8|  2|gauche   | | -9|  2|grandtp  |g|
  -8|  2|gauche   | | -8|  2|main    |m|
  -8|  2|main     | | -9|  2|basdroite|g|
@@ -555,7 +555,7 @@
 -10|  4|main     | |-11|  4|         |g|
 -10|  4|tp       | |-10|  5|         |b|
 -10|  4|tp       | |-10|  4|main     |m|
--10|  5|         | | -9|  5|bouton   |d|BOUTON D'ACCES SALLE VERTE 13
+-10|  5|         | | -9|  5|bouton   |d|droite (BOUTON D'ACCES SALLE VERTE 13)
 -10|  5|         | |-10|  6|tp       |b|
 -10|  6|main     | |-11|  6|tp       |g|
 -10|  6|main     | | -9|  6|         |d|
@@ -1284,7 +1284,8 @@
 -20| 18|droite   | |-20| 19|main     |b|
 -20| 19|vortex   | |-20| 19|main     |m|
 -20| 19|main     | |-19| 19|         |d|
--20| 19|main     | |-20| 20|         |b|
+-20| 19|main     | |-20| 20|main     |b|
+-20| 20|pics     | |-20| 20|main     |m|
 
   0| 20|         | | -4|  0|         |v|
  -5| 20|droite   | | -3|  0|         |v|
@@ -1299,38 +1300,38 @@
 -18| 20|         | |-12|  0|         |v|
 -20| 11|gauche   | |  0|  0|         |v|
 -20| 18|gauche   | | -9|  0|         |v|
--20| 19|vortex   | | -2|  0|         |v|SECRET DU LABY
--20| 20|         | |  0|  0|         |v|
+-20| 19|vortex   | | -2|  0|         |v|vortex (SECRET DU LABY)
+-20| 20|main     | |  0|  0|         |v|
 
--18| 17|droite   | |-17| 17|bouton   |d|BOUTON SALLE VERTE 1
+-18| 17|droite   | |-17| 17|bouton   |d|droite (BOUTON SALLE VERTE 1)
 -17| 17|bouton   | | -4|  0|         |v|
--16| 16|milieu   | |-16| 17|bouton   |b|BOUTON SALLE VERTE 2
+-16| 16|milieu   | |-16| 17|bouton   |b|bas (BOUTON SALLE VERTE 2)
 -16| 17|bouton   | |-17|  0|         |v|
--15| 16|gauche   | |-15| 17|bouton   |b|BOUTON SALLE VERTE 3
+-15| 16|gauche   | |-15| 17|bouton   |b|bas (BOUTON SALLE VERTE 3)
 -15| 17|bouton   | |-20|  0|         |v|
- -4|  5|main     |A|-14| 17|bouton   |v|BOUTON SALLE VERTE 4 (NECESSITE BOUTON)
+ -4|  5|main     |A|-14| 17|bouton   |v|vortex (BOUTON SALLE VERTE 4) (NECESSITE BOUTON)
 -14| 17|bouton   | | -4|  5|bas      |v|
--13| 18|tp       | |-14| 18|bouton   |g|BOUTON SALLE VERTE 5
+-13| 18|tp       | |-14| 18|bouton   |g|gauche (BOUTON SALLE VERTE 5)
 -14| 18|bouton   | |  0|  0|         |v|
--16| 18|tp       | |-15| 18|bouton   |d|BOUTON SALLE VERTE 6
+-16| 18|tp       | |-15| 18|bouton   |d|droite (BOUTON SALLE VERTE 6)
 -15| 18|bouton   | |  0|  0|         |v|
- -3| 15|vortex   | |-16| 18|bouton   |v|BOUTON SALLE VERTE 7
+ -3| 15|vortex   | |-16| 18|bouton   |v|vortex (BOUTON SALLE VERTE 7)
 -16| 18|bouton   | | -3| 15|main     |v|
- -1| 20|vortex   | |-17| 18|bouton   |v|BOUTON SALLE VERTE 8
+ -1| 20|vortex   | |-17| 18|bouton   |v|vortex (BOUTON SALLE VERTE 8)
 -17| 18|bouton   | | -1| 20|main     |v|
- -5| 10|vortex   |B|-17| 19|bouton   |v|BOUTON SALLE VERTE 9 (NECESSITE BOUTON)
+ -5| 10|vortex   |B|-17| 19|bouton   |v|vortex (BOUTON SALLE VERTE 9) (NECESSITE BOUTON)
 -17| 19|bouton   | | -5| 10|gauche   |v|
--10|  3|vortex   | |-16| 19|bouton   |v|BOUTON SALLE VERTE 10
+-10|  3|vortex   | |-16| 19|bouton   |v|vortex (BOUTON SALLE VERTE 10)
 -16| 19|bouton   | |-10|  3|gauche   |v|
--10| 15|vortex   | |-14| 19|bouton   |v|BOUTON SALLE VERTE 12
+-10| 15|vortex   | |-14| 19|bouton   |v|vortex (BOUTON SALLE VERTE 12)
 -14| 19|bouton   | |-10| 15|main     |v|
- -9|  5|main     |C|-14| 20|bouton   |v|BOUTON SALLE VERTE 13 (NECESSITE BOUTON)
+ -9|  5|main     |C|-14| 20|bouton   |v|vortex (BOUTON SALLE VERTE 13) (NECESSITE BOUTON)
 -14| 20|bouton   | | -9|  5|bas      |v|
--11| 19|vortex   | |-15| 20|bouton   |v|BOUTON SALLE VERTE 14
+-11| 19|vortex   | |-15| 20|bouton   |v|vortex (BOUTON SALLE VERTE 14)
 -15| 20|bouton   | |-11| 19|main     |v|
--13|  7|vortex   | |-16| 20|bouton   |v|BOUTON SALLE VERTE 15
+-13|  7|vortex   | |-16| 20|bouton   |v|vortex (BOUTON SALLE VERTE 15)
 -16| 20|bouton   | |-13|  7|main     |v|
- -8|  1|vortex   | |-17| 20|bouton   |v|BOUTON SALLE VERTE 16
+ -8|  1|vortex   | |-17| 20|bouton   |v|vortex (BOUTON SALLE VERTE 16)
 -17| 20|bouton   | | -8|  1|droite   |v|
 
 -17| 17|bouton   | | -9|  0|         |M|
@@ -1354,6 +1355,6 @@
 -16| 20|bouton   | | -9|  0|         |M|
 -17| 20|bouton   | | -9|  0|         |M|
 
- -4|  5|main     |A|-20| 20|         |v|vortex gauche/bas/droite (NECESSITE BOUTON)
- -7|  1|         | |-20| 20|         |v|
- -9|  4|         | |-20| 20|         |v|
+ -4|  5|main     |A|-20| 20|pics     |v|vortex gauche/bas/droite (NECESSITE BOUTON)
+ -7|  1|         | |-20| 20|pics     |v|
+ -9|  4|         | |-20| 20|pics     |v|
