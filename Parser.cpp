@@ -156,5 +156,6 @@ Laby Parser::parse() {
     Laby laby;
     this->getLinks(laby);
     this->getMustPass(laby);
+    laby.finalizeGraph();
     return laby;
 }

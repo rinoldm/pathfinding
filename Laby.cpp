@@ -17,6 +17,11 @@ uint8_t Node::getZone() const
     return this->zone;
 }
 
+StatefulNode Node::withState(uint8_t state) const
+{
+    return StatefulNode(this->x, this->y, this->zone, state);
+}
+
 bool Node::operator==(const Node &rhs) const
 {
     return this->x == rhs.x && this->y == rhs.y && this->zone == rhs.zone;
@@ -78,6 +83,11 @@ uint8_t StatefulNode::getZone() const
 uint8_t StatefulNode::getState() const
 {
     return this->zone;
+}
+
+Node StatefulNode::toNode() const
+{
+    return Node(this->x, this->y, this->zone);
 }
 
 bool StatefulNode::operator==(const StatefulNode &rhs) const
@@ -355,6 +365,19 @@ ConditionalLink Laby::findLink(Node from, Node to) const
     throw message;
 }
 
+Link Laby::findLink(StatefulNode from, StatefulNode to) const
+{
+    for (const auto &value : this->statefulGraph.at(from))
+    {
+        if (value.to == to)
+        {
+            return value;
+        }
+    }
+    std::string message("LinkNotFound");
+    throw message;
+}
+
 void Laby::printGraph() const
 {
     std::cout << "List of nodes and links:" << std::endl;
@@ -389,6 +412,23 @@ std::string Laby::formatNode(const Node &node) const
     return ss.str();
 }
 
+std::string Laby::formatNode(const StatefulNode &node) const
+{
+    std::string x = std::to_string(node.getX());
+    std::string y = std::to_string(node.getY());
+    uint8_t zoneIndex = node.getZone();
+    std::string zone = this->zoneNames[zoneIndex];
+    std::string state = std::to_string(node.getState());
+    std::stringstream ss;
+    ss << '(' << x << ';' << y << ')';
+    if (!zone.empty())
+    {
+        ss << '_' << zone;
+    }
+    ss << '[' << state << ']';
+    return ss.str();
+}
+
 std::string Laby::getLinkComment(const Link &link) const
 {
     uint16_t commentIndex = link.comment;
@@ -409,4 +449,9 @@ const std::vector<Node> &Laby::getMustPass() const
 const std::map<Node, std::vector<ConditionalLink>> &Laby::getGraph() const
 {
     return this->graph;
+}
+
+const std::map<StatefulNode, std::vector<Link>> &Laby::getStatefulGraph() const
+{
+    return this->statefulGraph;
 }

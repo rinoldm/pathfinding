@@ -13,7 +13,7 @@ private:
     const Laby& laby;
 public:
     std::vector<Node> mustPass;
-    std::array<std::array<Cost, MUSTPASSNB>, MUSTPASSNB> dist;
+    std::array<std::array<Cost, MUSTPASSNB * 8>, MUSTPASSNB * 8> dist;
     std::array<std::array<Cost, MUSTPASSNB>, 1 << MUSTPASSNB> visited;
     std::array<std::array<size_t, MUSTPASSNB>, 1 << MUSTPASSNB> previous;
     unsigned int counter = 0;

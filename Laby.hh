@@ -8,6 +8,7 @@
 #include <vector>
 
 class Laby;
+class StatefulNode;
 
 /**
  * A Node (without any state information)
@@ -16,6 +17,7 @@ class Node
 {
 private:
     friend class Laby;
+    friend class StatefulNode;
 
     int8_t x;
     int8_t y;
@@ -30,6 +32,7 @@ public:
     int8_t getX() const;
     int8_t getY() const;
     uint8_t getZone() const;
+    StatefulNode withState(uint8_t state) const;
 
     bool operator==(const Node& rhs) const;
     bool operator!=(const Node& rhs) const;
@@ -46,6 +49,7 @@ class StatefulNode
 {
 private:
     friend class Laby;
+    friend class Node;
 
     int8_t x;
     int8_t y;
@@ -67,6 +71,7 @@ public:
     int8_t getY() const;
     uint8_t getZone() const;
     uint8_t getState() const;
+    Node toNode() const;
 
     bool operator==(const StatefulNode& rhs) const;
     bool operator!=(const StatefulNode& rhs) const;
@@ -197,13 +202,16 @@ public:
     void finalizeGraph();
 
     ConditionalLink findLink(Node from, Node to) const;
+    Link findLink(StatefulNode from, StatefulNode to) const;
     void printGraph() const;
     std::string formatNode(const Node & node) const;
+    std::string formatNode(const StatefulNode & node) const;
     std::string getLinkComment(const Link & link) const;
     std::string getLinkComment(const ConditionalLink & link) const;
 
     const std::vector<Node>& getMustPass() const;
     const std::map<Node, std::vector<ConditionalLink>>& getGraph() const;
+    const std::map<StatefulNode, std::vector<Link>>& getStatefulGraph() const;
 
     Laby();
 };

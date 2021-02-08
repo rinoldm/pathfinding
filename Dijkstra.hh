@@ -10,15 +10,15 @@ private:
     const Laby &laby;
 
 public:
-    std::map<Node, std::map<Node, Cost>> dist;
-    std::map<Node, std::map<Node, std::optional<Node>>> prev;
+    std::map<StatefulNode, std::map<StatefulNode, Cost>> dist;
+    std::map<StatefulNode, std::map<StatefulNode, std::optional<StatefulNode>>> prev;
     unsigned int counter = 0;
     unsigned int percent = 0;
 
-    size_t indexOf(std::vector<Node> v, const Node & n);
-    std::optional<Node> findClosestNode(const std::map<Node, Cost> & dist, const std::set<Node>& nodes);
-    void printShortestPath(Heldkarp &heldkarp, Node start, Node target);
-    void findShortestPath(Node start);
+    size_t indexOf(std::vector<Node> v, const StatefulNode & n);
+    std::optional<StatefulNode> findClosestNode(const std::map<StatefulNode, Cost> & dist, const std::set<StatefulNode>& nodes);
+    void printShortestPath(Heldkarp &heldkarp, StatefulNode start, StatefulNode target);
+    void findShortestPath(StatefulNode start);
 
     Dijkstra(const Laby &laby);
 };
