@@ -82,7 +82,7 @@ uint8_t StatefulNode::getState() const
 
 bool StatefulNode::operator==(const StatefulNode &rhs) const
 {
-    return this->x == rhs.x && this->y == rhs.y && this->zone == rhs.zone;
+    return this->x == rhs.x && this->y == rhs.y && this->zone == rhs.zone && this->state == rhs.state;
 }
 
 bool StatefulNode::operator!=(const StatefulNode &rhs) const
@@ -100,9 +100,13 @@ bool StatefulNode::operator<(const StatefulNode &rhs) const
     {
         return this->y < rhs.y;
     }
-    else
+    else if (this->zone != rhs.zone)
     {
         return this->zone < rhs.zone;
+    }
+    else
+    {
+        return this->state < rhs.state;
     }
 }
 
