@@ -82,7 +82,7 @@ uint8_t StatefulNode::getZone() const
 
 uint8_t StatefulNode::getState() const
 {
-    return this->zone;
+    return this->state;
 }
 
 Node StatefulNode::toNode() const
@@ -305,10 +305,10 @@ void Laby::finalizeGraph()
 
         for (const auto &[from, outLinks] : this->graph)
         {
-            StatefulNode sFrom(from.x, from.y, from.zone, state);
+            StatefulNode sFrom = from.withState(state);
             for (const auto &cLink : outLinks)
             {
-                StatefulNode sTo(cLink.to.x, cLink.to.y, cLink.to.zone, state);
+                StatefulNode sTo = cLink.to.withState(state);
                 if (this->statefulGraph.count(sTo) == 0)
                 {
                     this->statefulGraph[sTo] = std::vector<Link>();
@@ -328,27 +328,51 @@ void Laby::finalizeGraph()
     uint16_t commentA = this->allocLinkComment(std::string("presser le bouton"));
     for (uint8_t i = 0; i < 4; ++i)
     {
-        StatefulNode sFrom(transitionA.x, transitionA.y, transitionA.zone, i << 1);
-        StatefulNode sTo(transitionA.x, transitionA.y, transitionA.zone, (i << 1) | 1);
+        uint8_t s = 0;
+
+        uint8_t highMask = (~0) << s;
+        uint8_t lowMask = ~highMask;
+        uint8_t high = highMask & i;
+        uint8_t low = lowMask & i;
+
+        StatefulNode sFrom = transitionA.withState((high << 1) | (0 << s) | low);
+        StatefulNode sTo   = transitionA.withState((high << 1) | (1 << s) | low);
         Link link(sFrom, sTo, Cost(), commentA);
+        this->statefulGraph[sFrom].push_back(link);
     }
 
     Node transitionB = this->transitions[1];
     uint16_t commentB = this->allocLinkComment(std::string("presser le bouton"));
     for (uint8_t i = 0; i < 4; ++i)
     {
-        StatefulNode sFrom(transitionB.x, transitionB.y, transitionB.zone, ((i << 1) & i) & ~(1 << 1));
-        StatefulNode sTo(transitionB.x, transitionB.y, transitionB.zone, ((i << 1) & i) | (1 << 1)); 
+        uint8_t s = 1;
+
+        uint8_t highMask = (~0) << s;
+        uint8_t lowMask = ~highMask;
+        uint8_t high = highMask & i;
+        uint8_t low = lowMask & i;
+
+        StatefulNode sFrom = transitionB.withState((high << 1) | (0 << s) | low);
+        StatefulNode sTo   = transitionB.withState((high << 1) | (1 << s) | low);
         Link link(sFrom, sTo, Cost(), commentB);
+        this->statefulGraph[sFrom].push_back(link);
     }
 
     Node transitionC = this->transitions[2];
     uint16_t commentC = this->allocLinkComment(std::string("presser le bouton"));
     for (uint8_t i = 0; i < 4; ++i)
     {
-        StatefulNode sFrom(transitionC.x, transitionC.y, transitionC.zone, i); // fix
-        StatefulNode sTo(transitionC.x, transitionC.y, transitionC.zone, i | (1 << 2)); // fix
+        uint8_t s = 2;
+
+        uint8_t highMask = (~0) << s;
+        uint8_t lowMask = ~highMask;
+        uint8_t high = highMask & i;
+        uint8_t low = lowMask & i;
+
+        StatefulNode sFrom = transitionC.withState((high << 1) | (0 << s) | low);
+        StatefulNode sTo   = transitionC.withState((high << 1) | (1 << s) | low);
         Link link(sFrom, sTo, Cost(), commentC);
+        this->statefulGraph[sFrom].push_back(link);
     }
 }
 

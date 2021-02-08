@@ -1,9 +1,9 @@
+#include <queue>
 #include "Dijkstra.hh"
 
-Dijkstra::Dijkstra(const Laby &laby): laby(laby) {}
+Dijkstra::Dijkstra(const Laby &laby) : laby(laby) {}
 
-size_t Dijkstra::indexOf(std::vector<Node> v, const StatefulNode & n)
-{
+size_t Dijkstra::indexOf(std::vector<Node> v, const StatefulNode &n) {
     for (size_t i = 0; i < v.size(); i++) {
         if (v[i] == n.toNode()) {
             return i * 8 + n.getState();
@@ -13,15 +13,13 @@ size_t Dijkstra::indexOf(std::vector<Node> v, const StatefulNode & n)
     throw message;
 }
 
-std::optional<StatefulNode> Dijkstra::findClosestNode(const std::map<StatefulNode, Cost> & distance, const std::set<StatefulNode>& nodes)
-{
+std::optional<StatefulNode>
+Dijkstra::findClosestNode(const std::map<StatefulNode, Cost> &distance, const std::set<StatefulNode> &nodes) {
     Cost minDistanceFound = Cost::MAX;
     std::optional<StatefulNode> minNodeFound;
 
-    for (const auto n : nodes)
-    {
-        if (distance.at(n) < minDistanceFound)
-        {
+    for (const auto n : nodes) {
+        if (distance.at(n) < minDistanceFound) {
             minDistanceFound = distance.at(n);
             minNodeFound = n;
         }
@@ -30,18 +28,17 @@ std::optional<StatefulNode> Dijkstra::findClosestNode(const std::map<StatefulNod
     return minNodeFound;
 }
 
-void Dijkstra::printShortestPath(Heldkarp &heldkarp, StatefulNode start, StatefulNode target)
-{
+void Dijkstra::printShortestPath(Heldkarp &heldkarp, StatefulNode start, StatefulNode target) {
     Cost cost = heldkarp.dist[this->indexOf(heldkarp.mustPass, start)][this->indexOf(heldkarp.mustPass, target)];
 
     std::cout
-        << "Distance "
-        << this->laby.formatNode(start)
-        << " - "
-        << this->laby.formatNode(target)
-        << " : "
-        << cost.getDistance()
-        << std::endl;
+            << "Distance "
+            << this->laby.formatNode(start)
+            << " - "
+            << this->laby.formatNode(target)
+            << " : "
+            << cost.getDistance()
+            << std::endl;
 
     std::vector<std::string> path;
     for (;;) {
@@ -60,45 +57,70 @@ void Dijkstra::printShortestPath(Heldkarp &heldkarp, StatefulNode start, Statefu
     std::cout << std::endl;
 }
 
-void Dijkstra::findShortestPath(StatefulNode start)
-{
-    std::set<StatefulNode> unvisitedNodes;
+std::map<StatefulNode, Cost> Dijkstra::findShortestPath(StatefulNode start) {
+    std::map<StatefulNode, Cost> dist;
+    std::map<StatefulNode, std::optional<StatefulNode>> prev;
 
-    for (const auto & [from, links] : laby.getStatefulGraph())
-    {
-        this->dist[start][from] = Cost::MAX;
-        this->prev[start][from] = std::nullopt;
-        unvisitedNodes.insert(from);
-    }
-    this->dist[start][start] = Cost();
+    typedef std::pair<Cost, StatefulNode> P;
+    std::priority_queue<P, std::vector<P>, std::greater<>> unvisitedNodes;
 
-    size_t mustPassCount = laby.getMustPass().size();
-
-    if (++this->counter > ((this->percent * mustPassCount) / 100))
-        ++this->percent && std::cout << "\r" << "Dijkstra : " << this->percent << "/" << mustPassCount;
-
-    while (unvisitedNodes.size() > 0)
-    {
-        std::optional<StatefulNode> candidateNode = this->findClosestNode(this->dist[start], unvisitedNodes);
-        if (!candidateNode.has_value()) {
-            break;
+    // Initialize all distances to +inf, and parents to "None"
+    for (const auto &[node, _] : laby.getStatefulGraph()) {
+        dist[node] = Cost::MAX;
+        prev[node] = std::nullopt;
+        if (node == start) {
+            unvisitedNodes.push(std::make_pair(Cost(), node));
+        } else {
+            unvisitedNodes.push(std::make_pair(Cost::MAX, node));
         }
-        unvisitedNodes.erase(*candidateNode);
+    }
 
-        for (const auto & [from, outLinks] : laby.getStatefulGraph())
-        {
-            for (const auto & link : outLinks)
-            {
-                if (candidateNode == link.getFrom())
-                {
-                    Cost alt = this->dist[start][*candidateNode] + link.getWeight();
-                    if (alt < this->dist[start][link.getTo()])
-                    {
-                        this->dist[start][link.getTo()] = alt;
-                        this->prev[start][link.getTo()] = candidateNode;
-                    }
-                }
+    dist[start] = Cost();
+
+    while (unvisitedNodes.size() > 0) {
+        P top = unvisitedNodes.top();
+        unvisitedNodes.pop();
+
+        Cost cost = top.first;
+        StatefulNode from = top.second;
+
+        if (cost > dist[from]) {
+            continue;
+        }
+
+        for (const auto &link : laby.getStatefulGraph().at(from)) {
+            StatefulNode to = link.getTo();
+            Cost oldCost = dist[to];
+            Cost altCost = cost + link.getWeight();
+            if (altCost < oldCost) {
+                dist[to] = altCost;
+                prev[to] = from;
+                unvisitedNodes.push(std::make_pair(altCost, to));
             }
         }
     }
+
+    this->dist[start] = dist;
+    this->prev[start] = prev;
+
+    return dist;
+}
+
+std::map<StatefulNode, std::map<StatefulNode, Cost>>
+Dijkstra::shortestAllPairs(const Laby &laby, const std::vector<StatefulNode> &nodes) &{
+    std::map<StatefulNode, std::map<StatefulNode, Cost>> dist;
+
+    size_t processed = 0;
+    for (const StatefulNode &from : nodes) {
+        this->findShortestPath(from);
+        for (const StatefulNode &to : nodes) {
+            if ((from.getState() | to.getState()) == to.getState()) {
+                dist[from][to] = this->dist[from][to];
+            } else {
+                dist[from][to] = Cost::MAX;
+            }
+        }
+        processed++;
+    }
+    return dist;
 }
