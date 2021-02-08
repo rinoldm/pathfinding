@@ -28,34 +28,34 @@ Dijkstra::findClosestNode(const std::map<StatefulNode, Cost> &distance, const st
     return minNodeFound;
 }
 
-void Dijkstra::printShortestPath(Heldkarp &heldkarp, StatefulNode start, StatefulNode target) {
-    Cost cost = heldkarp.dist[this->indexOf(heldkarp.mustPass, start)][this->indexOf(heldkarp.mustPass, target)];
-
-    std::cout
-            << "Distance "
-            << this->laby.formatNode(start)
-            << " - "
-            << this->laby.formatNode(target)
-            << " : "
-            << cost.getDistance()
-            << std::endl;
-
-    std::vector<std::string> path;
-    for (;;) {
-        std::optional<StatefulNode> prev = this->prev[start][target];
-        if (!prev.has_value()) {
-            break;
-        }
-        Link link = laby.findLink(*prev, target);
-        path.insert(path.begin(), " " + laby.getLinkComment(link) + " -> " + laby.formatNode(target));
-        target = *prev;
-    }
-
-    for (auto i = path.begin(); i != path.end(); ++i) {
-        std::cout << *i << std::endl;
-    }
-    std::cout << std::endl;
-}
+//void Dijkstra::printShortestPath(Heldkarp &heldkarp, StatefulNode start, StatefulNode target) {
+//    Cost cost = heldkarp.dist[this->indexOf(heldkarp.mustPass, start)][this->indexOf(heldkarp.mustPass, target)];
+//
+//    std::cout
+//            << "Distance "
+//            << this->laby.formatNode(start)
+//            << " - "
+//            << this->laby.formatNode(target)
+//            << " : "
+//            << cost.getDistance()
+//            << std::endl;
+//
+//    std::vector<std::string> path;
+//    for (;;) {
+//        std::optional<StatefulNode> prev = this->prev[start][target];
+//        if (!prev.has_value()) {
+//            break;
+//        }
+//        Link link = laby.findLink(*prev, target);
+//        path.insert(path.begin(), " " + laby.getLinkComment(link) + " -> " + laby.formatNode(target));
+//        target = *prev;
+//    }
+//
+//    for (auto i = path.begin(); i != path.end(); ++i) {
+//        std::cout << *i << std::endl;
+//    }
+//    std::cout << std::endl;
+//}
 
 std::map<StatefulNode, Cost> Dijkstra::findShortestPath(StatefulNode start) {
     std::map<StatefulNode, Cost> dist;
@@ -107,7 +107,7 @@ std::map<StatefulNode, Cost> Dijkstra::findShortestPath(StatefulNode start) {
 }
 
 std::map<StatefulNode, std::map<StatefulNode, Cost>>
-Dijkstra::shortestAllPairs(const Laby &laby, const std::vector<StatefulNode> &nodes) &{
+Dijkstra::shortestAllPairs(const std::vector<StatefulNode> &nodes) &{
     std::map<StatefulNode, std::map<StatefulNode, Cost>> dist;
 
     size_t processed = 0;

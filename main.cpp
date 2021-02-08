@@ -1,7 +1,7 @@
 #include "Parser.hh"
 #include "Laby.hh"
 #include "Dijkstra.hh"
-//#include "Heldkarp.hh"
+#include "Heldkarp.hh"
 
 void printDistanceMatrix(const Laby &laby, const std::map<StatefulNode, std::map<StatefulNode, Cost>> &dist) {
     for (const auto &[from, outLinks] : dist) {
@@ -16,8 +16,8 @@ void printDistanceMatrix(const Laby &laby, const std::map<StatefulNode, std::map
 int main() {
     Parser parser("links.txt", "nodes.txt");
     Laby laby = parser.parse();
-    Dijkstra dijkstra(laby);
-//    Heldkarp *heldkarp = new Heldkarp(laby);
+
+    // laby.printGraph();
 
     const std::vector<Node> &mustpass = laby.getMustPass();
     std::vector<StatefulNode> statefulMustpass;
@@ -27,34 +27,23 @@ int main() {
         }
     }
 
-    std::map<StatefulNode, std::map<StatefulNode, Cost>> dist = dijkstra.shortestAllPairs(laby, statefulMustpass);
+    Dijkstra dijkstra(laby);
+    std::map<StatefulNode, std::map<StatefulNode, Cost>> dist = dijkstra.shortestAllPairs(statefulMustpass);
 
+    // we get a new matrix representing a graph between all mustpass points with their shortest distances
     printDistanceMatrix(laby, dist);
 
-//    for (const StatefulNode & from : statefulMustpass) {
-//        // for each mustpass point
-//        for (unsigned int i = 0; i != mustpass.size(); ++i) {
-//            // find the shortest path between the mustpass point and every other node in the labyrinth
-//            dijkstra.findShortestPath(mustpass[i].withState(state));
-//
-//            for (uint8_t targetState = 0; targetState < 8; ++targetState) {
-//                // for each mustpass point, store its shortest path with every other mustpass point
-//                for (unsigned int j = 0; j != mustpass.size(); ++j) {
-//                    heldkarp->dist[i * 8 + state][j * 8 + targetState] = dijkstra.dist[mustpass[i].withState(
-//                            state)][mustpass[j].withState(targetState)];
-//                }
-//            }
-//        }
-//    }
     std::cout << std::endl;
 
-    // laby.printGraph();
-    // we get a new matrix representing a graph between all mustpass points with their shortest distances
-//    heldkarp->printMatrix();
-    /*
     // now we need to find the shortest tour through all the mustpass points
-    Cost answer = heldkarp->findShortestTour(0, (1 << heldkarp->mustPass.size()) - 1) + Cost(1, 0);
+    Heldkarp *heldkarp = new Heldkarp(laby, dist);
+    Cost answer = heldkarp->findShortestTour();
+
     std::cout << std::endl << "Nombre de niveaux parcourus : " << answer.getDistance() << ", " << answer.getDeath() << std::endl << std::endl;
+
+//    Cost answer = heldkarp->findShortestTour(0, (1 << heldkarp->mustPass.size()) - 1) + Cost(1, 0);
+
+    /*
 
     std::vector<Node> path = {heldkarp->mustPass.front()};
     for (int nodeBits = (1 << heldkarp->mustPass.size()) - 1, end = 0; nodeBits != 0; nodeBits &= ~(1 << end)) {
