@@ -1,6 +1,6 @@
 #include "Parser.hh"
 
-Parser::Parser(std::string linksfile, std::string mustpassfile) : linksfile(linksfile), mustpassfile(mustpassfile) {
+Parser::Parser(std::string linksfile, std::string nodesfile) : linksfile(linksfile), nodesfile(nodesfile) {
     this->linkData =
     {
         {"g", std::make_tuple(1, 0, "gauche")},
@@ -75,7 +75,7 @@ void Parser::checkLink(int x1, int y1, std::string zone1, int x2, int y2, std::s
 
 void Parser::getMustPass(Laby &laby)
 {
-    std::ifstream filestream(this->mustpassfile);
+    std::ifstream filestream(this->nodesfile);
     if(filestream.fail()){
         std::string message("I/O Error getMustPass");
         std::cerr << message << std::endl;
@@ -89,18 +89,26 @@ void Parser::getMustPass(Laby &laby)
         }
 
         int x, y;
-        std::string zone;
+        std::string zone, flag;
         std::istringstream linestream(line);
         std::string token;
 
         std::getline(linestream, token, '|');   x = std::stoi(token);
         std::getline(linestream, token, '|');   y = std::stoi(token);
         std::getline(linestream, token, '|');   zone = trim(token);
+        std::getline(linestream, token, '|');   flag = trim(token);
 
         Node node = laby.makeNode(x, y, zone);
 
-
-        laby.addMustPass(node);
+        if (flag == "m")
+        {   
+            laby.addMustPass(node);
+        }
+        else
+        {
+            laby.addTransition(node);
+        }
+        
     }
 }
 

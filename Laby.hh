@@ -67,6 +67,13 @@ public:
     int8_t getY() const;
     uint8_t getZone() const;
     uint8_t getState() const;
+
+    bool operator==(const StatefulNode& rhs) const;
+    bool operator!=(const StatefulNode& rhs) const;
+    bool operator<(const StatefulNode& rhs) const;
+    bool operator>(const StatefulNode& rhs) const;
+    bool operator<=(const StatefulNode& rhs) const;
+    bool operator>=(const StatefulNode& rhs) const;
 };
 
 /**
@@ -113,19 +120,19 @@ class Link
 private:
     friend class Laby;
 
-    Node from;
-    Node to;
+    StatefulNode from;
+    StatefulNode to;
     Cost weight;
     /**
      * Comment Index
      */
     uint16_t comment;
 
-    Link(Node from, Node to, Cost weight, uint16_t comment);
+    Link(StatefulNode from, StatefulNode to, Cost weight, uint16_t comment);
 
 public:
-    Node getFrom() const;
-    Node getTo() const;
+    StatefulNode getFrom() const;
+    StatefulNode getTo() const;
     Cost getWeight() const;
 };
 
@@ -168,7 +175,9 @@ private:
     std::vector<std::string> zoneNames;
     std::vector<std::string> linkComments;
     std::map<Node, std::vector<ConditionalLink>> graph;
+    std::map<StatefulNode, std::vector<Link>> statefulGraph;
     std::vector<Node> mustPass;
+    std::vector<Node> transitions;
 
     /**
      * Ensures the zone name is in the table of zone names and returns its index
@@ -184,6 +193,8 @@ public:
     Node makeNode(int8_t x, int8_t y, const std::string& zone);
     void addLink(Node from, Node to, Cost weight, uint8_t condition, const std::string& comment);
     void addMustPass(Node mustpass);
+    void addTransition(Node transition);
+    void finalizeGraph();
 
     ConditionalLink findLink(Node from, Node to) const;
     void printGraph() const;

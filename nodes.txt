@@ -1,0 +1,20 @@
+  0| 0|       |m
+-17|17|bouton |m
+-16|17|bouton |m
+-15|17|bouton |m
+-14|17|bouton |m
+-17|18|bouton |m
+-16|18|bouton |m
+-15|18|bouton |m
+-14|18|bouton |m
+-17|19|bouton |m
+-16|19|bouton |m
+-14|19|bouton |m
+-17|20|bouton |m
+-16|20|bouton |m
+-15|20|bouton |m
+-14|20|bouton |m
+-17|22|       |m
+ -4| 5|boutons|A
+ -5|10|haut   |B
+ -9| 5|bouton |C

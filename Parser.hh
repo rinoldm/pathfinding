@@ -13,7 +13,7 @@ class Parser
 {
 public:
     std::string linksfile;
-    std::string mustpassfile;
+    std::string nodesfile;
     std::map<std::string, std::tuple<uint16_t, uint16_t, std::string>> linkData;
 
     uint16_t getLevelCost(std::string type);
@@ -24,7 +24,7 @@ public:
 
     Laby parse();
 
-    Parser(std::string linksfile, std::string mustpassfile);
+    Parser(std::string linksfile, std::string nodesfile);
 private:
     void getMustPass(Laby &laby);
     void getLinks(Laby &laby);

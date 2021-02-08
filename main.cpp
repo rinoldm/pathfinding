@@ -3,9 +3,10 @@
 #include "Dijkstra.hh"
 #include "Heldkarp.hh"
 
+
 int main()
 {
-    Parser parser("links.txt", "mustpass.txt");
+    Parser parser("links.txt", "nodes.txt");
     Laby laby = parser.parse();
     Dijkstra dijkstra(laby);
     Heldkarp *heldkarp = new Heldkarp(laby);
@@ -29,7 +30,7 @@ int main()
 
     // now we need to find the shortest tour through all the mustpass points
     Cost answer = heldkarp->findShortestTour(0, (1 << heldkarp->mustPass.size()) - 1) + Cost(1, 0);
-    std::cout << std::endl << "Nombre de niveaux parcourus : " << answer.getDistance() << std::endl << std::endl;
+    std::cout << std::endl << "Nombre de niveaux parcourus : " << answer.getDistance() << ", " << answer.getDeath() << std::endl << std::endl;
 
     std::vector<Node> path = {heldkarp->mustPass.front()};
     for (int nodeBits = (1 << heldkarp->mustPass.size()) - 1, end = 0; nodeBits != 0; nodeBits &= ~(1 << end)) {
