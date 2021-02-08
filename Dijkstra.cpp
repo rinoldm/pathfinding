@@ -124,3 +124,18 @@ Dijkstra::shortestAllPairs(const std::vector<StatefulNode> &nodes) &{
     }
     return dist;
 }
+
+std::deque<StatefulNode> Dijkstra::getPath(const StatefulNode &start, const StatefulNode &end) {
+    std::deque<StatefulNode> path;
+
+    std::optional<StatefulNode> cur = end;
+    for(;;) {
+        if (!cur.has_value()) {
+            break;
+        }
+        path.push_front(*cur);
+        cur = this->prev[start][*cur];
+    }
+
+    return path;
+}

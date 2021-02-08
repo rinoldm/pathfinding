@@ -1,3 +1,4 @@
+#include <deque>
 #include "Heldkarp.hh"
 
 Heldkarp::Heldkarp(const Laby &laby, const std::map<StatefulNode, std::map<StatefulNode, Cost>> & dist) : laby(laby)
@@ -43,17 +44,39 @@ void Heldkarp::setTourCost(uint32_t visitedSet, size_t lastStNodeId, Cost c) {
     this->tourCosts[visitedSet * this->STATEFUL_NODE_COUNT + lastStNodeId] = c;
 }
 
+size_t Heldkarp::getPrevious(uint32_t visitedSet, size_t lastStNodeId) {
+    return this->previous[visitedSet * this->STATEFUL_NODE_COUNT + lastStNodeId];
+}
+
 void Heldkarp::setPrevious(uint32_t visitedSet, size_t lastStNodeId, size_t prevId) {
     this->previous[visitedSet * this->STATEFUL_NODE_COUNT + lastStNodeId] = prevId;
 }
 
-Cost Heldkarp::findShortestTour()
+std::pair<Cost, std::deque<StatefulNode>> Heldkarp::findShortestTour()
 {
     size_t exitNodeId = this->NODE_COUNT - 1;
     size_t exitId = exitNodeId * 8 + 0b111;
     uint32_t allVisitedMask = (1 << this->NODE_COUNT) - 1;
     uint32_t allVisitedMaskExceptExit = allVisitedMask & ~(1 << exitNodeId);
-    return this->innerFindShortestTour(allVisitedMaskExceptExit, exitId);
+    Cost cost = this->innerFindShortestTour(allVisitedMaskExceptExit, exitId);
+
+    std::deque<StatefulNode> path;
+    const std::vector<Node>& mustpass = this->laby.getMustPass();
+    path.push_front(mustpass[mustpass.size() - 1].withState(7));
+
+    size_t curStNodeId = exitId;
+    size_t curVisitedSet = allVisitedMaskExceptExit;
+    while(curStNodeId != 0) {
+        size_t curNodeId = curStNodeId >> 3;
+        size_t stNodeId = this->getPrevious(curVisitedSet, curStNodeId);
+        size_t nodeId = stNodeId >> 3;
+        uint8_t state = stNodeId & 0b111;
+        path.push_front(mustpass[nodeId].withState(state));
+        curVisitedSet = curVisitedSet & ~(1 << nodeId);
+        curStNodeId = stNodeId;
+    }
+
+    return std::make_pair(cost, path);
 }
 
 // [{0, 1, 2, 3, 4,  }; 5x]
@@ -92,6 +115,9 @@ Cost Heldkarp::innerFindShortestTour(uint32_t visitedSet, size_t lastStNodeId)
         Cost c;
         if (isEntryNode) {
             c = this->getCost(0, lastStNodeId);
+            if (lastStNodeId != 0) {
+                this->setPrevious(visitedSet, lastStNodeId, 0);
+            }
         } else {
             c = Cost::MAX;
         }

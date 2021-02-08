@@ -1,5 +1,6 @@
 #pragma once
 
+#include <deque>
 #include <set>
 #include "Laby.hh"
 
@@ -21,6 +22,8 @@ public:
 
     // map[from][to] = cost;
     std::map<StatefulNode, std::map<StatefulNode, Cost>> shortestAllPairs(const std::vector<StatefulNode> & nodes) &;
+
+    std::deque<StatefulNode> getPath(const StatefulNode & start, const StatefulNode & end);
 
     Dijkstra(const Laby &laby);
 };

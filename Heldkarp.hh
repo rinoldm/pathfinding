@@ -1,5 +1,6 @@
 #pragma once
 
+#include <deque>
 #include <vector>
 #include <array>
 #include <iostream>
@@ -30,6 +31,7 @@ private:
     Cost getTourCost(uint32_t visitedSet, size_t lastStNodeId);
     void setTourCost(uint32_t visitedSet, size_t lastStNodeId, Cost c);
 
+    size_t getPrevious(uint32_t visitedSet, size_t lastStNodeId);
     void setPrevious(uint32_t visitedSet, size_t lastStNodeId, size_t prevId);
 
     Cost innerFindShortestTour(uint32_t visitedSet, size_t lastStNodeId);
@@ -38,7 +40,7 @@ public:
     unsigned int counter = 0;
     unsigned int percent = 0;
 
-    Cost findShortestTour();
+    std::pair<Cost, std::deque<StatefulNode>> findShortestTour();
 
     Heldkarp(const Laby &laby, const std::map<StatefulNode, std::map<StatefulNode, Cost>> & dist);
 };

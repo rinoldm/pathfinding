@@ -31,17 +31,38 @@ int main() {
     std::map<StatefulNode, std::map<StatefulNode, Cost>> dist = dijkstra.shortestAllPairs(statefulMustpass);
 
     // we get a new matrix representing a graph between all mustpass points with their shortest distances
-    printDistanceMatrix(laby, dist);
+    // printDistanceMatrix(laby, dist);
 
     std::cout << std::endl;
 
     // now we need to find the shortest tour through all the mustpass points
     Heldkarp *heldkarp = new Heldkarp(laby, dist);
-    Cost answer = heldkarp->findShortestTour();
+    auto [answer, path] = heldkarp->findShortestTour();
 
     std::cout << std::endl << "Nombre de niveaux parcourus : " << answer.getDistance() << ", " << answer.getDeath() << std::endl << std::endl;
 
-//    Cost answer = heldkarp->findShortestTour(0, (1 << heldkarp->mustPass.size()) - 1) + Cost(1, 0);
+    std::cout << ">> " << laby.formatNode(path[0]) << std::endl << std::endl;
+
+    for (size_t i = 1; i < path.size(); i++) {
+        StatefulNode from = path[i - 1];
+        StatefulNode to = path[i];
+
+        std::deque<StatefulNode> subPath =  dijkstra.getPath(from, to);
+
+        for (size_t j = 0; j < subPath.size(); j++) {
+            StatefulNode subTo = subPath[j];
+            if (j > 0) {
+                StatefulNode subFrom = subPath[j - 1];
+                Link l = laby.findLink(subFrom, subTo);
+                std::cout << "    | " << laby.getLinkComment(l) << std::endl;
+            }
+            std::cout << "    " << laby.formatNode(subTo) << std::endl;
+        }
+
+        std::cout << std::endl;
+
+        std::cout << ">> " << laby.formatNode(to) << std::endl << std::endl;
+    }
 
     /*
 
