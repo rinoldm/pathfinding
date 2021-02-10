@@ -121,7 +121,10 @@ Dijkstra::shortestAllPairs(const std::vector<StatefulNode> &nodes) &{
             }
         }
         processed++;
+        std::cout << "\r" << std::flush;
+        std::cout << "Dijkstra: " << (int) (100 * ((float) processed / (this->laby.getMustPass().size() * (1 << this->laby.getTransitions().size())))) << "%";
     }
+    std::cout << std::endl;
     return dist;
 }
 

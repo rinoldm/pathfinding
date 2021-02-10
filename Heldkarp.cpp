@@ -9,7 +9,6 @@ Heldkarp::Heldkarp(const Laby &laby, const std::map<StatefulNode, std::map<State
             statefulMustpass.push_back(mp.withState(state));
         }
     }
-
     size_t stNodeId = 0;
     for (const auto & from : statefulMustpass) {
         for (const auto & to : statefulMustpass) {
@@ -19,13 +18,20 @@ Heldkarp::Heldkarp(const Laby &laby, const std::map<StatefulNode, std::map<State
     }
     this->NODE_COUNT = laby.getMustPass().size();
     this->STATEFUL_NODE_COUNT = stNodeId;
-
-    for (size_t visitedMask = 0; visitedMask < (1 << this->NODE_COUNT); visitedMask++) {
+    
+    size_t processed = 0;
+    for (int visitedMask = 0; visitedMask < (1 << this->NODE_COUNT); visitedMask++) {
         for (size_t lastStNodeId = 0; lastStNodeId < this->STATEFUL_NODE_COUNT; lastStNodeId++) {
             this->tourCosts.push_back(Cost());
             this->previous.push_back(0);
         }
+        processed++;
+        if (processed % 2048 == 0) {
+            std::cout << "\r" << std::flush;
+            std::cout << "Held-Karp loading: " << (int) (100 * ((float) processed / (1 << laby.getMustPass().size()))) << "%";
+        }
     }
+    std::cout << std::endl;
 }
 
 Cost Heldkarp::getCost(const StatefulNode &from, const StatefulNode &to) {
@@ -52,8 +58,7 @@ void Heldkarp::setPrevious(uint32_t visitedSet, size_t lastStNodeId, size_t prev
     this->previous[visitedSet * this->STATEFUL_NODE_COUNT + lastStNodeId] = prevId;
 }
 
-std::pair<Cost, std::deque<StatefulNode>> Heldkarp::findShortestTour()
-{
+std::pair<Cost, std::deque<StatefulNode>> Heldkarp::findShortestTour() {
     size_t exitNodeId = this->NODE_COUNT - 1;
     size_t exitId = exitNodeId * 8 + 0b111;
     uint32_t allVisitedMask = (1 << this->NODE_COUNT) - 1;
@@ -78,32 +83,11 @@ std::pair<Cost, std::deque<StatefulNode>> Heldkarp::findShortestTour()
     return std::make_pair(cost, path);
 }
 
-// [{0, 1, 2, 3, 4,  }; 5x]
-
-// [{0, 1, 2,  ,  ,  }; 4a]
-
-// [{0, 1,  ,  ,  ,  }; 2a] + (2a -> 4a)
-// [{0, 1,  ,  ,  ,  }; 2_] + (2_ -> 4a)
-// [{0,  , 2,  ,  ,  }; 1a] + (1a -> 4a)
-// [{0,  , 2,  ,  ,  }; 1_] + (1_ -> 4a)
-// [{ , 1, 2,  ,  ,  }; 0a] + (0a -> 4a)
-// [{ , 1, 2,  ,  ,  }; 0_] + (0_ -> 4a)
-
-// [{0, 1, 2,  ,  }; 4A]
-// [{0,  ,  ,  ,  }; 3A]
-
-// [{}, 15[0]] -> MAX
-// [{}, 12[0]] -> Ma
-// [{}, 15[3]]
-// [{}, 0[0]] -> 0
-// [{}, 0[7]] -> dijkstra: 0[0] -> 0[7]
-
 // Computes the shortest tour
 //
 // - visitedSet: subSet of non-stateful nodes to visit
 // - lastStNodeId: id the last stateful node to visit
-Cost Heldkarp::innerFindShortestTour(uint32_t visitedSet, size_t lastStNodeId)
-{
+Cost Heldkarp::innerFindShortestTour(uint32_t visitedSet, size_t lastStNodeId) {
     Cost oldCost = this->getTourCost(visitedSet, lastStNodeId);
     if (oldCost != Cost()) {
         return oldCost;
@@ -125,8 +109,7 @@ Cost Heldkarp::innerFindShortestTour(uint32_t visitedSet, size_t lastStNodeId)
     }
 
     Cost minFound = Cost::MAX;
-    for (size_t prevNodeIdx = 0; prevNodeIdx < this->NODE_COUNT; prevNodeIdx++)
-    {
+    for (size_t prevNodeIdx = 0; prevNodeIdx < this->NODE_COUNT; prevNodeIdx++) {
         if (!(visitedSet & (1 << prevNodeIdx))) {
             continue;
         }

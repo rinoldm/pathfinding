@@ -23,18 +23,15 @@ static inline std::string trim(std::string &s) {
     return s;
 }
 
-uint16_t Parser::getLevelCost(std::string type)
-{
+uint16_t Parser::getLevelCost(std::string type) {
     return (std::get<0>(this->linkData[type]));
 }
 
-uint16_t Parser::getDeathCost(std::string type)
-{
+uint16_t Parser::getDeathCost(std::string type) {
     return (std::get<1>(this->linkData[type]));
 }
 
-uint8_t Parser::getCondition(std::string cond)
-{
+uint8_t Parser::getCondition(std::string cond) {
     uint8_t condition = 0b111111;
 
     if (cond == "A") {
@@ -53,13 +50,11 @@ uint8_t Parser::getCondition(std::string cond)
     return condition;
 }
 
-std::string Parser::getComment(std::string type, std::string comment)
-{
+std::string Parser::getComment(std::string type, std::string comment) {
    return (comment == "" ? std::get<2>(this->linkData[type]) : comment);
 }
 
-void Parser::checkLink(int x1, int y1, std::string zone1, int x2, int y2, std::string zone2, std::string type)
-{
+void Parser::checkLink(int x1, int y1, std::string zone1, int x2, int y2, std::string zone2, std::string type) {
     if ((type == "g" && (x2 != x1 - 1 || y2 != y1    )) ||
         (type == "d" && (x2 != x1 + 1 || y2 != y1    )) ||
         (type == "b" && (x2 != x1     || y2 != y1 + 1)) ||
@@ -73,17 +68,15 @@ void Parser::checkLink(int x1, int y1, std::string zone1, int x2, int y2, std::s
         }
 }
 
-void Parser::getMustPass(Laby &laby)
-{
+void Parser::getMustPass(Laby &laby) {
     std::ifstream filestream(this->nodesfile);
-    if(filestream.fail()){
+    if (filestream.fail()) {
         std::string message("I/O Error getMustPass");
         std::cerr << message << std::endl;
         throw message;
     }
     std::string line;
-    while (std::getline(filestream, line))
-    {
+    while (std::getline(filestream, line)) {
         if ((trim(line)).empty()) {
             continue;
         }
@@ -100,29 +93,25 @@ void Parser::getMustPass(Laby &laby)
 
         Node node = laby.makeNode(x, y, zone);
 
-        if (flag == "m")
-        {   
+        if (flag == "m") {   
             laby.addMustPass(node);
         }
-        else
-        {
+        else {
             laby.addTransition(node);
         }
         
     }
 }
 
-void Parser::getLinks(Laby &laby)
-{
+void Parser::getLinks(Laby &laby) {
     std::ifstream filestream(this->linksfile);
-    if(filestream.fail()){
+    if (filestream.fail()) {
         std::string message("I/O Error getLinks");
         std::cerr << message << std::endl;
         throw message;
     }
     std::string line;
-    while (std::getline(filestream, line))
-    {
+    while (std::getline(filestream, line)) {
         if ((trim(line)).empty()) {
             continue;
         }

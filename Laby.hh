@@ -210,6 +210,7 @@ public:
     std::string getLinkComment(const ConditionalLink & link) const;
 
     const std::vector<Node>& getMustPass() const;
+    const std::vector<Node>& getTransitions() const;
     const std::map<Node, std::vector<ConditionalLink>>& getGraph() const;
     const std::map<StatefulNode, std::vector<Link>>& getStatefulGraph() const;
 

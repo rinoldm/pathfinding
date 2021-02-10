@@ -13,12 +13,7 @@ void printDistanceMatrix(const Laby &laby, const std::map<StatefulNode, std::map
     }
 }
 
-int main() {
-    Parser parser("links.txt", "nodes.txt");
-    Laby laby = parser.parse();
-
-    // laby.printGraph();
-
+void catacombesOptimalPath(const Laby &laby) {
     const std::vector<Node> &mustpass = laby.getMustPass();
     std::vector<StatefulNode> statefulMustpass;
     for (const Node &mp : mustpass) {
@@ -32,8 +27,6 @@ int main() {
 
     // we get a new matrix representing a graph between all mustpass points with their shortest distances
     // printDistanceMatrix(laby, dist);
-
-    std::cout << std::endl;
 
     // now we need to find the shortest tour through all the mustpass points
     Heldkarp *heldkarp = new Heldkarp(laby, dist);
@@ -60,22 +53,50 @@ int main() {
         }
 
         std::cout << std::endl;
-
         std::cout << ">> " << laby.formatNode(to) << std::endl << std::endl;
     }
+}
 
-    /*
+void menuCatacombes() {
+    Parser parser("catacombes_links.txt", "catacombes_nodes.txt");
+    Laby laby = parser.parse();
+    // laby.printGraph();
 
-    std::vector<Node> path = {heldkarp->mustPass.front()};
-    for (int nodeBits = (1 << heldkarp->mustPass.size()) - 1, end = 0; nodeBits != 0; nodeBits &= ~(1 << end)) {
-        path.push_back(heldkarp->mustPass[end = heldkarp->previous[nodeBits][end]]);
+    std::cout << "Labyrinthe : Les catacombes de Tuberculoz" << std::endl;
+    std::cout << "1 - Chemin optimal" << std::endl;
+    std::cout << "2 - Chemin entre deux points" << std::endl;
+
+    int optionChemin = 0;
+    std::cin >> optionChemin;
+    switch(optionChemin) {
+        case 1:
+            std::cout << "Chemin optimal" << std::endl;
+            catacombesOptimalPath(laby);
+            break;
+        case 2:
+            std::cout << "Chemin entre deux points" << std::endl;
+            break;
+        default:
+            break;
     }
+}
 
-    std::cout << "Entree du labyrinthe : " << laby.formatNode(heldkarp->mustPass.front()) << std::endl << std::endl;
-    for (unsigned int i = 1; i < path.size() - 1; ++i) {
-        dijkstra.printShortestPath(*heldkarp, path[i], path[i + 1]);
+int main() {
+    std::cout << "Bienvenue dans le Pathfinder. Selectionnez une des options suivantes :" << std::endl;
+    std::cout << "1 - Les catacombes de Tuberculoz" << std::endl;
+    std::cout << "2 - Prochain laby (TODO)" << std::endl;
+
+    int optionLaby = 0;
+    std::cin >> optionLaby;
+    switch(optionLaby) {
+        case 1:
+            menuCatacombes();
+            break;
+        case 2:
+            std::cout << "Prochain laby (TODO)" << std::endl;
+            break;
+        default:
+            break;
     }
-    std::cout << "Sortie du labyrinthe : " << laby.formatNode(heldkarp->mustPass.back()) << std::endl;
-*/
     return 0;
 }
