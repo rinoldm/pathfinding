@@ -116,8 +116,12 @@ Cost Heldkarp::innerFindShortestTour(uint32_t visitedSet, size_t lastStNodeId) {
         for (uint8_t prevState = 0; prevState < 8; prevState++) {
             size_t prevStNodeId = prevNodeIdx * 8 + prevState;
             uint32_t prevVisitedSet = visitedSet & ~(1 << prevNodeIdx);
+            Cost segmentCost = this->getCost(prevStNodeId, lastStNodeId);
+            if (segmentCost == Cost::MAX) {
+                continue;
+            }
             Cost prevTourCost = this->innerFindShortestTour(prevVisitedSet, prevStNodeId);
-            Cost newCost = prevTourCost + this->getCost(prevStNodeId, lastStNodeId);
+            Cost newCost = prevTourCost + segmentCost;
             if (newCost < minFound) {
                 minFound = newCost;
                 this->setPrevious(visitedSet, lastStNodeId, prevStNodeId);
