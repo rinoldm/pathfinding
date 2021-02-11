@@ -340,6 +340,20 @@ std::string Laby::formatNode(const StatefulNode &node) const {
     return ss.str();
 }
 
+std::string Laby::getZoneName(const Node &node) const {
+    uint8_t zoneIndex = node.getZone();
+    return this->zoneNames[zoneIndex];
+}
+
+std::string Laby::getZoneName(const StatefulNode &node) const {
+    uint8_t zoneIndex = node.getZone();
+    return this->zoneNames[zoneIndex];
+}
+
+std::string Laby::getZoneName(uint8_t zoneIndex) const {
+    return this->zoneNames[zoneIndex];
+}
+
 std::string Laby::getLinkComment(const Link &link) const {
     uint16_t commentIndex = link.comment;
     return this->linkComments[commentIndex];

@@ -26,8 +26,6 @@ private:
      */
     uint8_t zone;
 
-    Node(int8_t x, int8_t y, uint8_t zone);
-
 public:
     int8_t getX() const;
     int8_t getY() const;
@@ -40,6 +38,8 @@ public:
     bool operator>(const Node& rhs) const;
     bool operator<=(const Node& rhs) const;
     bool operator>=(const Node& rhs) const;
+
+    Node(int8_t x, int8_t y, uint8_t zone);
 };
 
 /**
@@ -64,8 +64,7 @@ private:
     // 2: indicates if (-9;5)_bouton is enabled
     uint8_t state;
 
-    StatefulNode(int8_t x, int8_t y, uint8_t zone, uint8_t state);
-
+    
 public:
     int8_t getX() const;
     int8_t getY() const;
@@ -79,6 +78,8 @@ public:
     bool operator>(const StatefulNode& rhs) const;
     bool operator<=(const StatefulNode& rhs) const;
     bool operator>=(const StatefulNode& rhs) const;
+
+    StatefulNode(int8_t x, int8_t y, uint8_t zone, uint8_t state);
 };
 
 /**
@@ -206,6 +207,9 @@ public:
     void printGraph() const;
     std::string formatNode(const Node & node) const;
     std::string formatNode(const StatefulNode & node) const;
+    std::string getZoneName(const Node &node) const;
+    std::string getZoneName(const StatefulNode &node) const;
+    std::string getZoneName(uint8_t zoneIndex) const;
     std::string getLinkComment(const Link & link) const;
     std::string getLinkComment(const ConditionalLink & link) const;
 

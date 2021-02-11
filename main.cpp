@@ -57,6 +57,65 @@ void catacombesOptimalPath(const Laby &laby) {
     }
 }
 
+void catacombesComputePathBetweenPoints(const Laby &laby, const Node &from, const Node &to, int currentState) {
+    std::cout << "From (" << (int) from.getX() << ";" << (int) from.getY() << ") " << laby.getZoneName(from.getZone()) << std::endl; 
+    std::cout << "To (" << (int) to.getX() << ";" << (int) to.getY() << ") " << laby.getZoneName(to.getZone()) << std::endl;
+}
+
+void catacombesDeuxPoints(const Laby &laby) {
+    int optionFromX, optionFromY, optionFromState, optionFromZone, optionToX, optionToY, optionToZone;
+    std::vector<uint8_t> possibleFromZones, possibleToZones;
+
+    std::cout << "Etat actuel des boutons (de 0 a 7) : ";
+    std::cin >> optionFromState;
+
+    std::cout << "Position de depart :" << std::endl;
+    std::cout << "X (de -20 a 0) : ";
+    std::cin >> optionFromX;
+    std::cout << "Y (de 0 a 20) : ";
+    std::cin >> optionFromY;
+
+    for (const auto &from : laby.getStatefulGraph()) {
+        if (from.first.getX() == optionFromX && from.first.getY() == optionFromY && from.first.getState() == optionFromState) {
+            possibleFromZones.push_back(from.first.getZone());
+            optionFromZone = from.first.getZone();
+        }
+    }
+
+    if (possibleFromZones.size() > 1) {
+        std::cout << "Zone du niveau (" << optionFromX << ";" << optionFromY << ") :" << std::endl;
+        for (unsigned int i = 0; i < possibleFromZones.size(); ++i) {
+            std::cout << i + 1 << " - " << laby.getZoneName(possibleFromZones[i]) << std::endl;
+        }
+        std::cin >> optionFromZone;
+        optionFromZone = possibleFromZones[optionFromZone - 1];
+    }
+
+    std::cout << "Position d'arrivee :" << std::endl;
+    std::cout << "X (de -20 a 0) : ";
+    std::cin >> optionToX;
+    std::cout << "Y (de 0 a 20) : ";
+    std::cin >> optionToY;
+
+    for (const auto &from : laby.getStatefulGraph()) {
+        if (from.first.getX() == optionToX && from.first.getY() == optionToY && from.first.getState() == 7) {
+            possibleToZones.push_back(from.first.getZone());
+            optionToZone = from.first.getZone();
+        }
+    }
+
+    if (possibleToZones.size() > 1) {
+        std::cout << "Zone du niveau (" << optionToX << ";" << optionToY << ") :" << std::endl;
+        for (unsigned int i = 0; i < possibleToZones.size(); ++i) {
+            std::cout << i + 1 << " - " << laby.getZoneName(possibleToZones[i]) << std::endl;
+        }
+        std::cin >> optionToZone;
+        optionToZone = possibleToZones[optionToZone - 1];
+    }
+
+    catacombesComputePathBetweenPoints(laby, Node(optionFromX, optionFromY, optionFromZone), Node(optionToX, optionToY, optionToZone), optionFromState);
+}
+
 void menuCatacombes() {
     Parser parser("catacombes_links.txt", "catacombes_nodes.txt");
     Laby laby = parser.parse();
@@ -75,6 +134,7 @@ void menuCatacombes() {
             break;
         case 2:
             std::cout << "Chemin entre deux points" << std::endl;
+            catacombesDeuxPoints(laby);
             break;
         default:
             break;
