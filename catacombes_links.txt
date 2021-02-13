@@ -559,7 +559,8 @@
 -10|  5|         | |-10|  6|tp       |b|
 -10|  6|main     | |-11|  6|tp       |g|
 -10|  6|main     | | -9|  6|         |d|
--10|  6|tp       | |-10|  6|main     |c|frame perfect TP (ou mort)
+-10|  6|tp       | |-10|  6|main     |c|frame perfect TP
+-10|  6|tp       | |-10|  6|main     |m|
 -10|  6|tp       | |-10|  7|haut     |b|
 -10|  7|haut     | |-11|  7|main     |g|
 -10|  7|bas      | |-11|  7|tp       |g|
@@ -734,7 +735,10 @@
 -12| 17|main     | |-13| 17|         |g|
 -12| 17|main     | |-12| 18|droite   |b|
 -12| 17|tp       | |-12| 17|main     |c|change zone
--12| 17|tp       | |-12| 18|gauche   |b|bas droite (IG'OR)
+-12| 17|tp       | |-12| 18|pics     |b|bas gauche
+-12| 17|tp       | |-12| 18|trigger  |b|bas droite
+-12| 18|pics     | |-12| 18|gauche   |c|change zone
+-12| 18|trigger  | |-12| 18|gauche   |c|change zone (IG'OR)
 -12| 18|gauche   | |-13| 18|tp       |g|
 -12| 18|gauche   | |-12| 18|droite   |m|
 -12| 18|droite   | |-11| 18|portes   |d|
@@ -1163,8 +1167,8 @@
 -18| 15|gauche   | |-18| 15|main     |m|
 -18| 15|droite   | |-18| 15|main     |m|
 -18| 15|gauche   | |-18| 15|droite   |c|
--18| 15|droite   | |-17| 15|tp       |d|haut droite
--18| 15|droite   | |-17| 15|porte    |d|bas droite
+-18| 15|droite   | |-17| 15|tp       |d|porte haut
+-18| 15|droite   | |-17| 15|porte    |d|porte bas
 -18| 16|         | |-18| 17|gauche   |b|bas gauche
 -18| 16|         | |-18| 17|droite   |b|bas droite
 -18| 17|tp       | |-17| 17|porte    |d|
